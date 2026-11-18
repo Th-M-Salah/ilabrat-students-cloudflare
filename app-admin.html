@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+    <meta name="description" content="تسجيل دخول مدير تطبيق إيلابرات.">
+
+    <title>دخول مدير التطبيق | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+    <link rel="apple-touch-icon" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- ملف التنسيق الخارجي -->
+    <link rel="stylesheet" href="css/app-admin.css">
+</head>
+
+<body>
+
+    <main class="login-container">
+
+        <header class="brand">
+            <img src="assets/ilabrat-logo.png" alt="شعار إيلابرات">
+            <h1>إيلابرات</h1>
+            <p>ILABRAT STUDENTS</p>
+        </header>
+
+        <section class="login-card">
+
+            <div class="admin-label">
+                <span></span>
+                منطقة إدارية خاصة
+            </div>
+
+            <h2>دخول مدير التطبيق</h2>
+
+            <p class="intro">
+                سجّل الدخول باستخدام حساب مدير التطبيق للوصول إلى
+                إدارة المدارس وحسابات مديريها.
+            </p>
+
+            <form id="appAdminLoginForm" novalidate>
+
+                <div class="form-group">
+                    <label for="adminEmail">البريد الإلكتروني</label>
+                    <input
+                        id="adminEmail"
+                        name="email"
+                        type="email"
+                        autocomplete="username"
+                        placeholder="أدخل البريد الإلكتروني"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="adminPassword">كلمة المرور</label>
+
+                    <div class="password-field">
+                        <input
+                            id="adminPassword"
+                            name="password"
+                            type="password"
+                            autocomplete="current-password"
+                            placeholder="أدخل كلمة المرور"
+                            required>
+
+                        <button
+                            class="toggle-password"
+                            id="toggleAdminPassword"
+                            type="button"
+                            aria-label="إظهار كلمة المرور"
+                            aria-pressed="false">
+                            إظهار
+                        </button>
+                    </div>
+                </div>
+
+                <p
+                    id="adminLoginMessage"
+                    class="login-message"
+                    role="status"
+                    aria-live="polite"
+                    hidden></p>
+
+                <button
+                    id="adminLoginButton"
+                    class="login-button"
+                    type="submit">
+                    تسجيل الدخول
+                </button>
+
+            </form>
+
+            <p class="security-note">
+                لا يُسمح بالدخول إلا للحساب الذي يحمل صلاحية مدير التطبيق.
+            </p>
+
+            <a class="back-link" href="index.html">
+                العودة إلى الصفحة الرئيسية
+            </a>
+
+        </section>
+
+        <footer>
+            © <span id="currentYear"></span> إيلابرات — جميع الحقوق محفوظة
+        </footer>
+
+    </main>
+
+   
+    <!-- تحميل Supabase وإعدادات المشروع بالترتيب الصحيح -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/app-admin.js" defer></script>
+
+</body>
+</html>
+
+
+   
+
+

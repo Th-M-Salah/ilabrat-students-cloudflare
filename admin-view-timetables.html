@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-auth-scope="school_admin">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <title>عرض الجداول الدراسية | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/admin-view-timetables.css">
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <aside class="sidebar">
+
+        <a href="index.html" class="brand" aria-label="العودة إلى إيلابرات">
+            <img
+                src="assets/ilabrat-logo.png"
+                alt="شعار إيلابرات"
+                class="brand-icon"
+                style="object-fit:contain;"
+            >
+
+            <span class="brand-text">
+                <strong>إيلابرات</strong>
+                <small>ILABRAT · ADMIN</small>
+            </span>
+        </a>
+
+        <div class="school-context-card" aria-label="المدرسة المرتبطة بالحساب">
+            <div class="school-context-icon" aria-hidden="true">🏫</div>
+
+            <div class="school-context-text">
+                <small>إدارة المدرسة</small>
+                <strong id="schoolDisplayName">جارٍ تحميل اسم المدرسة...</strong>
+            </div>
+        </div>
+
+        <div class="sidebar-heading">القائمة الرئيسية</div>
+
+        <nav class="sidebar-nav" aria-label="القائمة الرئيسية">
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>الرئيسية</span>
+            </a>
+
+            <a href="teacher-registration.html" class="nav-item">
+                <span class="nav-icon">＋</span>
+                <span>إضافة معلم</span>
+            </a>
+
+            <a href="student-accounts.html" class="nav-item">
+                <span class="nav-icon">＋</span>
+                <span>إضافة طالب</span>
+            </a>
+
+            <a href="teacher-accounts.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>حسابات المعلمين</span>
+            </a>
+
+            <a href="student-management.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>حسابات الطلاب</span>
+            </a>
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>إدارة الجدول</span>
+            </a>
+
+            <a
+                href="admin-view-timetables.html"
+                class="nav-item active"
+                aria-current="page"
+            >
+                <span class="nav-icon">▤</span>
+                <span>عرض الجداول</span>
+            </a>
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>تسجيل الخروج</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">i</div>
+
+            <div>
+                <strong>إدارة أكثر سهولة</strong>
+                <p>نظّم جدول مدرستك من مكان واحد.</p>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <a href="admin-timetable.html">الرئيسية</a>
+                <span>/</span>
+                <strong>عرض الجداول الدراسية</strong>
+            </div>
+
+            <div class="admin-profile">
+
+                <span class="online-dot"></span>
+
+                <div class="profile-info">
+                    <small>مرحباً بك</small>
+                    <strong id="adminDisplayName">مدير المدرسة</strong>
+                </div>
+
+                <div class="profile-avatar" id="profileAvatar">م</div>
+
+            </div>
+
+        </header>
+
+
+        <div class="page-container">
+
+            <section class="page-header">
+
+                <div>
+
+                    <span class="section-label">
+                        <span class="label-dot"></span>
+                        إدارة الجداول الدراسية
+                    </span>
+
+                    <h1>عرض الجداول الدراسية</h1>
+
+                    <p>
+                        اختر المرحلة والصف والجنس والشعبة لعرض الجدول الأسبوعي
+                        بصيغة جدول مدرسي منظم، مع إمكانية تعديل الحصص وطباعتها.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+            <section class="selection-panel panel">
+
+                <div class="panel-heading">
+
+                    <div class="panel-heading-icon">🏫</div>
+
+                    <div>
+                        <h2>تحديد الصف والشعبة</h2>
+                        <p>حدد بيانات الصف الذي تريد الاطلاع على جدوله الدراسي.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="selection-grid">
+
+                    <label class="form-field">
+                        <span>المرحلة الدراسية</span>
+
+                        <select id="stageSelect" disabled>
+                            <option value="">جارٍ تحميل المراحل...</option>
+                        </select>
+                    </label>
+
+
+                    <label class="form-field">
+                        <span>الصف الدراسي</span>
+
+                        <select id="gradeSelect" disabled>
+                            <option value="">اختر الصف</option>
+                        </select>
+                    </label>
+
+
+                    <label class="form-field">
+                        <span>الجنس</span>
+
+                        <select id="genderSelect" disabled>
+                            <option value="">اختر الجنس</option>
+                        </select>
+                    </label>
+
+
+                    <label class="form-field">
+                        <span>الشعبة</span>
+
+                        <select id="sectionSelect" disabled>
+                            <option value="">اختر الشعبة</option>
+                        </select>
+                    </label>
+
+
+                    <label class="form-field">
+                        <span>تاريخ يوم الأحد</span>
+
+                        <input
+                            type="date"
+                            id="weekStart"
+                            aria-label="تاريخ يوم الأحد"
+                        >
+                    </label>
+
+                </div>
+
+            </section>
+
+
+            <section class="schedule-section">
+
+                <div class="schedule-header">
+
+                    <div>
+                        <h2>الجدول الأسبوعي</h2>
+
+                        <p>
+                            جدول مدرسي منظم من يوم الأحد إلى يوم الخميس،
+                            مع تاريخ كل يوم والحصص الدراسية.
+                        </p>
+                    </div>
+
+
+                    <div class="schedule-header-actions">
+
+                        <div class="schedule-badge">
+                            <span class="schedule-badge-dot"></span>
+                            جدول الصف المحدد
+                        </div>
+
+                        <button
+                            type="button"
+                            id="printScheduleBtn"
+                            class="btn btn-primary"
+                            disabled
+                        >
+                            <span aria-hidden="true">🖨️</span>
+                            طباعة الجدول
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- منطقة الطباعة: الجدول ومعلوماته فقط -->
+
+                <div
+                    class="schedule-card schedule-panel panel"
+                    id="schedulePrintArea"
+                >
+
+                    <div class="print-header" id="printHeader">
+
+                        <h2>الجدول الدراسي الأسبوعي</h2>
+
+                        <div
+                            class="print-school-name"
+                            id="printSchoolName">
+                        </div>
+
+                        <div
+                            class="print-class-info"
+                            id="printClassInfo">
+                        </div>
+
+                        <div
+                            class="print-week-info"
+                            id="printWeekInfo">
+                        </div>
+
+                    </div>
+
+
+                    <div class="table-responsive table-scroll">
+
+                        <table id="viewSchedule">
+
+                            <thead>
+                                <tr>
+                                    <th>الحصة</th>
+                                    <th>الأحد</th>
+                                    <th>الاثنين</th>
+                                    <th>الثلاثاء</th>
+                                    <th>الأربعاء</th>
+                                    <th>الخميس</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="scheduleBody">
+
+                                <tr>
+                                    <td colspan="6" class="empty-message">
+                                        اختر المرحلة والصف والجنس والشعبة لعرض الجدول.
+                                    </td>
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="pageMessage"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+            </section>
+
+
+            <footer class="page-footer">
+                <span>© 2026 إيلابرات ILABRAT</span>
+                <span>•</span>
+                <span>إدارة الجداول المدرسية</span>
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =====================================================
+     نافذة تعديل الحصة
+     ===================================================== -->
+
+<div
+    id="editLessonModal"
+    class="edit-modal"
+    hidden
+    aria-hidden="true"
+>
+
+    <div class="edit-modal-overlay" data-close-edit></div>
+
+    <div
+        class="edit-modal-content"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="editLessonTitle"
+    >
+
+        <div class="edit-modal-header">
+
+            <div>
+                <h2 id="editLessonTitle">تعديل الحصة الدراسية</h2>
+                <p>اختر المادة والمدرّس وحدّث بيانات الحصة.</p>
+            </div>
+
+            <button
+                type="button"
+                id="closeEditModal"
+                class="edit-modal-close"
+                aria-label="إغلاق"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="editLessonForm">
+
+            <input type="hidden" id="editLessonId">
+
+            <div class="edit-form-grid">
+
+                <label class="form-field">
+                    <span>المادة الدراسية</span>
+
+                    <select id="editSubject" required>
+                        <option value="">اختر المادة</option>
+                    </select>
+                </label>
+
+
+                <label class="form-field">
+                    <span>المدرّس</span>
+
+                    <select id="editTeacher" required>
+                        <option value="">اختر المدرّس</option>
+                    </select>
+                </label>
+
+
+                <label class="form-field">
+                    <span>وقت بداية الحصة</span>
+
+                    <input
+                        type="time"
+                        id="editStartTime"
+                    >
+                </label>
+
+
+                <label class="form-field">
+                    <span>وقت نهاية الحصة</span>
+
+                    <input
+                        type="time"
+                        id="editEndTime"
+                    >
+                </label>
+
+
+                <label class="form-field edit-note-field">
+                    <span>ملاحظة الحصة</span>
+
+                    <textarea
+                        id="editLessonNote"
+                        rows="3"
+                        placeholder="أدخل ملاحظة الحصة إن وجدت..."
+                    ></textarea>
+                </label>
+
+            </div>
+
+
+            <div
+                id="editLessonMessage"
+                role="status"
+                aria-live="polite">
+            </div>
+
+
+            <div class="edit-modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelEditLesson"
+                    class="btn btn-secondary"
+                >
+                    إلغاء
+                </button>
+
+                <button
+                    type="submit"
+                    id="saveEditLesson"
+                    class="btn btn-primary"
+                >
+                    حفظ التعديلات
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script src="supabase-config.js"></script>
+
+<script src="js/admin-view-timetables.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-auth-scope="student">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <title>تفاصيل الواجب | إيلابرات</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="css/timetable.css">
+    <link rel="stylesheet" href="css/homework-details.css">
+</head>
+
+<body class="homework-details-page">
+
+    <div class="homework-details-container">
+
+        <!-- HEADER -->
+        <header class="details-header">
+            <a href="timetable.html" class="details-back-link">
+                <span aria-hidden="true">→</span>
+                <span>العودة إلى الجدول</span>
+            </a>
+
+            <div class="details-brand">
+                <span class="details-brand-icon">I</span>
+                <div>
+                    <strong>ILABRAT</strong>
+                    <small>إيلابرات للطلبة</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- PAGE TITLE -->
+        <section class="details-page-heading">
+            <div class="details-heading-icon" aria-hidden="true">✎</div>
+
+            <div>
+                <h1>تفاصيل الواجب</h1>
+                <p>عرض واجب المادة والصور المرفقة به</p>
+            </div>
+        </section>
+
+        <!-- LOADING -->
+        <section
+            id="detailsLoading"
+            class="details-state-card"
+            aria-live="polite"
+        >
+            <span class="details-loader"></span>
+            <p>جارٍ تحميل تفاصيل الواجب...</p>
+        </section>
+
+        <!-- ERROR -->
+        <section
+            id="detailsError"
+            class="details-state-card details-error"
+            hidden
+            role="alert"
+        >
+            <div class="details-state-icon">!</div>
+            <h2>تعذر عرض الواجب</h2>
+            <p id="detailsErrorMessage">
+                حدث خطأ أثناء تحميل بيانات الواجب.
+            </p>
+
+            <a href="timetable.html" class="details-primary-button">
+                العودة إلى الجدول
+            </a>
+        </section>
+
+        <!-- HOMEWORK CONTENT -->
+        <main id="homeworkDetailsContent" hidden>
+
+            <!-- HOMEWORK INFORMATION -->
+            <article class="details-homework-card">
+
+                <div class="details-card-heading">
+                    <span class="details-card-icon">▤</span>
+
+                    <div>
+                        <span class="details-label">المادة الدراسية</span>
+                        <h2 id="detailsSubject">—</h2>
+                    </div>
+                </div>
+
+                <div class="details-meta-grid">
+
+                    <div class="details-meta-item">
+                        <span class="details-meta-icon">▣</span>
+                        <div>
+                            <small>تاريخ نشر الواجب</small>
+                            <strong id="detailsCreatedAt">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="details-meta-item">
+                        <span class="details-meta-icon">◷</span>
+                        <div>
+                            <small>تاريخ الحصة / الواجب</small>
+                            <strong id="detailsTargetDate">—</strong>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="details-divider"></div>
+
+                <section class="details-description">
+                    <h3>
+                        <span aria-hidden="true">✎</span>
+                        نص الواجب
+                    </h3>
+
+                    <div id="detailsHomeworkText"></div>
+                </section>
+
+            </article>
+
+            <!-- ATTACHMENTS -->
+            <section class="details-attachments-section">
+
+                <div class="details-section-heading">
+                    <div>
+                        <h2>صور الواجب</h2>
+                        <p>اضغط على أي صورة لعرضها بحجم أكبر</p>
+                    </div>
+
+                    <span id="detailsImageCount" class="details-image-count">
+                        ٠ صور
+                    </span>
+                </div>
+
+                <div id="detailsAttachments" class="details-attachments-grid">
+                </div>
+
+                <div
+                    id="detailsNoAttachments"
+                    class="details-no-attachments"
+                    hidden
+                >
+                    <span aria-hidden="true">▧</span>
+                    <p>لا توجد صور مرفقة بهذا الواجب.</p>
+                </div>
+
+            </section>
+
+            <!-- EXPIRY NOTICE -->
+            <div class="details-expiry-notice">
+                <span aria-hidden="true">ⓘ</span>
+                <p>
+                    صور الواجب متاحة لمدة ٧ أيام من تاريخ النشر،
+                    وبعد انتهاء المدة تُحذف تلقائياً.
+                </p>
+            </div>
+
+            <!-- BACK BUTTON -->
+            <div class="details-footer">
+                <a href="timetable.html" class="details-primary-button">
+                    العودة إلى الجدول الدراسي
+                </a>
+            </div>
+
+        </main>
+
+        <!-- IMAGE VIEWER -->
+        <dialog id="detailsImageViewer" class="details-image-viewer">
+
+            <div class="details-viewer-header">
+                <span id="detailsViewerCaption">صورة الواجب</span>
+
+                <button
+                    type="button"
+                    id="closeDetailsImageViewer"
+                    class="details-viewer-close"
+                    aria-label="إغلاق الصورة"
+                >
+                    ×
+                </button>
+            </div>
+
+            <div class="details-viewer-body">
+                <img
+                    id="detailsViewerImage"
+                    src=""
+                    alt="صورة الواجب"
+                >
+            </div>
+
+        </dialog>
+
+        <!-- FOOTER -->
+        <footer class="details-page-footer">
+            <span>ILABRAT</span>
+            <span>جداول إيلابرات الدراسية</span>
+        </footer>
+
+    </div>
+
+    <!-- SUPABASE -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <!-- PAGE SCRIPT -->
+    <script src="js/homework-details.js"></script>
+
+</body>
+</html>

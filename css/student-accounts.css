@@ -1,0 +1,1015 @@
+
+/* =====================================================
+   ILABRAT STUDENTS — Student Accounts
+   متوافق مع student-accounts.html
+   يعتمد القائمة الجانبية والهوية العامة من admin-timetable.css
+   ===================================================== */
+
+/* =====================================================
+   1. إعدادات الصفحة
+   ===================================================== */
+
+.student-accounts-container {
+    --sa-primary: #5A1825;
+    --sa-primary-dark: #43131D;
+    --sa-primary-light: #7A2A39;
+    --sa-gold: #C7A56A;
+    --sa-gold-light: #E2CFA8;
+    --sa-beige: #F3EEE7;
+    --sa-beige-dark: #E8DED2;
+    --sa-white: #FFFFFF;
+    --sa-text: #292323;
+    --sa-text-soft: #6F6461;
+    --sa-border: #E5DCD3;
+    --sa-success: #287D53;
+    --sa-danger: #B43A42;
+    --sa-radius: 15px;
+
+    width: 100%;
+    max-width: 1600px;
+    min-width: 0;
+    margin: 0 auto;
+    color: var(--sa-text);
+    font-family: "Cairo", Tahoma, Arial, sans-serif;
+    direction: rtl;
+}
+
+.student-accounts-container,
+.student-accounts-container *,
+.student-accounts-container *::before,
+.student-accounts-container *::after {
+    box-sizing: border-box;
+}
+
+.student-accounts-container img {
+    max-width: 100%;
+}
+
+.student-accounts-container button,
+.student-accounts-container input,
+.student-accounts-container select {
+    font: inherit;
+}
+
+.student-accounts-container button {
+    cursor: pointer;
+}
+
+.student-accounts-container button:focus-visible,
+.student-accounts-container a:focus-visible,
+.student-accounts-container input:focus-visible,
+.student-accounts-container select:focus-visible {
+    outline: 3px solid rgba(199, 165, 106, 0.6);
+    outline-offset: 2px;
+}
+
+.student-accounts-container [hidden] {
+    display: none !important;
+}
+
+/* =====================================================
+   2. عنوان الصفحة
+   ===================================================== */
+
+.student-accounts-container .page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin: 0 0 24px;
+}
+
+.student-accounts-container .page-header > div {
+    min-width: 0;
+}
+
+.student-accounts-container .section-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 8px;
+    color: var(--sa-primary-light);
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.student-accounts-container .label-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+    background: var(--sa-gold);
+}
+
+.student-accounts-container .page-header h1 {
+    margin: 0 0 7px;
+    color: var(--sa-primary);
+    font-size: clamp(23px, 2vw, 30px);
+    font-weight: 800;
+    line-height: 1.7;
+}
+
+.student-accounts-container .page-header p {
+    max-width: 780px;
+    margin: 0;
+    color: var(--sa-text-soft);
+    font-size: 13px;
+    line-height: 2;
+}
+
+/* =====================================================
+   3. بطاقات التنبيه ومعلومات المدرسة
+   ===================================================== */
+
+.student-accounts-container .notice-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 16px;
+    padding: 15px 17px;
+    border: 1px solid var(--sa-border);
+    border-radius: 12px;
+    background: var(--sa-white);
+}
+
+.student-accounts-container .student-school-card {
+    border-color: #E8D5D7;
+    background: #FBF6F5;
+}
+
+.student-accounts-container .notice-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    color: var(--sa-primary);
+    background: var(--sa-beige);
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.student-accounts-container .notice-card > div:last-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.student-accounts-container .notice-card strong {
+    display: block;
+    margin: 0 0 4px;
+    color: var(--sa-primary);
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.student-accounts-container .notice-card p {
+    margin: 0;
+    color: var(--sa-text);
+    font-size: 12px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.student-accounts-container .notice-card small {
+    display: block;
+    margin-top: 4px;
+    color: var(--sa-text-soft);
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+/* =====================================================
+   4. البطاقات الرئيسية
+   ===================================================== */
+
+.student-accounts-container .panel {
+    width: 100%;
+    min-width: 0;
+    margin: 0 0 22px;
+    padding: 23px;
+    border: 1px solid var(--sa-border);
+    border-radius: var(--sa-radius);
+    background: var(--sa-white);
+    box-shadow: 0 4px 18px rgba(41, 35, 35, 0.035);
+}
+
+.student-accounts-container .panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    min-width: 0;
+    margin: 0 0 22px;
+}
+
+.student-accounts-container .panel-heading > div:first-child {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.student-accounts-container .panel-heading h2 {
+    margin: 0;
+    color: var(--sa-primary);
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.7;
+}
+
+.student-accounts-container .panel-heading p {
+    margin: 5px 0 0;
+    color: var(--sa-text-soft);
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+.student-accounts-container .student-panel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
+    overflow: hidden;
+    border: 1px solid var(--sa-beige-dark);
+    border-radius: 13px;
+    color: var(--sa-primary);
+    background: var(--sa-beige);
+    font-size: 21px;
+    line-height: 1;
+}
+
+/* =====================================================
+   5. نموذج إنشاء حساب الطالب
+   ===================================================== */
+
+.student-accounts-container .student-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    width: 100%;
+    min-width: 0;
+}
+
+.student-accounts-container .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    color: var(--sa-text);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.student-accounts-container .form-field > span {
+    color: var(--sa-primary-dark);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.student-accounts-container .form-field input,
+.student-accounts-container .form-field select {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 47px;
+    margin: 0;
+    padding: 0 13px;
+    border: 1px solid var(--sa-border);
+    border-radius: 10px;
+    outline: none;
+    color: var(--sa-text);
+    background: #FDFCFB;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.student-accounts-container .form-field input::placeholder {
+    color: #B2A6A0;
+    font-weight: 400;
+}
+
+.student-accounts-container .form-field input:focus,
+.student-accounts-container .form-field select:focus {
+    border-color: var(--sa-gold);
+    box-shadow: 0 0 0 3px rgba(199, 165, 106, 0.14);
+}
+
+.student-accounts-container .form-field input:disabled,
+.student-accounts-container .form-field select:disabled {
+    color: #A59A94;
+    background: #F0EDE9;
+    cursor: not-allowed;
+}
+
+.student-accounts-container .form-field small {
+    color: var(--sa-text-soft);
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.8;
+}
+
+/* =====================================================
+   6. رسائل النموذج
+   ===================================================== */
+
+.student-accounts-container .student-form-message {
+    width: 100%;
+    margin: 15px 0 0;
+    padding: 11px 14px;
+    border: 1px solid var(--sa-border);
+    border-radius: 9px;
+    color: var(--sa-text);
+    background: #F8F4EF;
+    font-size: 12px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+/* رسالة معلومات */
+
+.student-accounts-container .student-form-message.info {
+    border-color: var(--sa-border);
+    color: var(--sa-text);
+    background: #F8F4EF;
+}
+
+/* رسالة نجاح */
+
+.student-accounts-container .student-form-message.success {
+    border-color: #D2E7DA;
+    color: var(--sa-success);
+    background: #F0F8F3;
+}
+
+/* رسالة خطأ */
+
+.student-accounts-container .student-form-message.error {
+    border-color: #EBCBCB;
+    color: var(--sa-danger);
+    background: #FFF3F2;
+}
+
+/* =====================================================
+   7. الأزرار
+   ===================================================== */
+
+.student-accounts-container .student-form-actions,
+.student-accounts-container .student-tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.student-accounts-container .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-width: 0;
+    min-height: 43px;
+    margin: 0;
+    padding: 10px 17px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-decoration: none;
+    white-space: normal;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.student-accounts-container .btn-primary {
+    border-color: var(--sa-primary);
+    color: var(--sa-white);
+    background: var(--sa-primary);
+}
+
+.student-accounts-container .btn-primary:hover {
+    border-color: var(--sa-primary-light);
+    background: var(--sa-primary-light);
+}
+
+.student-accounts-container .btn-secondary {
+    border-color: var(--sa-border);
+    color: var(--sa-primary);
+    background: var(--sa-white);
+}
+
+.student-accounts-container .btn-secondary:hover {
+    border-color: var(--sa-gold);
+    background: var(--sa-beige);
+}
+
+.student-accounts-container .btn-outline {
+    border-color: #DCCBC2;
+    color: var(--sa-primary);
+    background: #FFFFFF;
+}
+
+.student-accounts-container .btn-outline:hover {
+    border-color: var(--sa-gold);
+    background: #FBF7F1;
+}
+
+.student-accounts-container .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =====================================================
+   8. لوحة بيانات الحساب
+   ===================================================== */
+
+.student-accounts-container .credentials-panel {
+    border-top: 3px solid var(--sa-gold);
+}
+
+.student-accounts-container .credentials-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    padding: 7px 12px;
+    border: 1px solid #D2E7DA;
+    border-radius: 20px;
+    color: var(--sa-success);
+    background: #F0F8F3;
+    font-size: 10px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+/* =====================================================
+   9. جدول بيانات الحساب
+   ===================================================== */
+
+.student-accounts-container .student-credentials-table-wrap {
+    width: 100%;
+    min-width: 0;
+    margin-top: 5px;
+    overflow-x: auto;
+    border: 1px solid var(--sa-border);
+    border-radius: 12px;
+    background: var(--sa-white);
+    -webkit-overflow-scrolling: touch;
+}
+
+.student-accounts-container .student-credentials-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: right;
+    font-family: "Cairo", Tahoma, Arial, sans-serif;
+}
+
+.student-accounts-container .student-credentials-table th,
+.student-accounts-container .student-credentials-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #EEE6E2;
+    vertical-align: middle;
+    overflow-wrap: anywhere;
+}
+
+.student-accounts-container .student-credentials-table th {
+    width: 155px;
+    color: var(--sa-primary);
+    background: #F8F4F0;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.student-accounts-container .student-credentials-table td {
+    color: var(--sa-primary-dark);
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.9;
+}
+
+.student-accounts-container .student-credentials-table tr:last-child th,
+.student-accounts-container .student-credentials-table tr:last-child td {
+    border-bottom: 0;
+}
+
+.student-accounts-container .credential-value {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+.student-accounts-container .credential-secret {
+    letter-spacing: 1px;
+    direction: ltr;
+    unicode-bidi: isolate;
+}
+
+.student-accounts-container .student-credentials-table .credential-copy {
+    min-height: 32px;
+    margin-inline-start: 9px;
+    padding: 5px 10px;
+    font-size: 10px;
+    white-space: nowrap;
+}
+
+/* =====================================================
+   10. أدوات الحساب
+   ===================================================== */
+
+.student-accounts-container .student-tools {
+    align-items: center;
+    margin-top: 18px;
+}
+
+.student-accounts-container .student-tools .btn {
+    min-height: 41px;
+}
+
+/* =====================================================
+   11. منطقة QR وبطاقة الطباعة
+   ===================================================== */
+
+.student-accounts-container .student-qr-panel {
+    width: 100%;
+    min-width: 0;
+    margin-top: 22px;
+    padding-top: 22px;
+    border-top: 1px dashed var(--sa-border);
+}
+
+.student-accounts-container .student-print-card {
+    width: 100%;
+    max-width: 600px;
+    min-width: 0;
+    margin: 0 auto;
+    padding: 22px;
+    border: 1px solid var(--sa-border);
+    border-radius: 13px;
+    color: var(--sa-text);
+    background: var(--sa-white);
+    box-shadow: 0 4px 15px rgba(41, 35, 35, 0.025);
+}
+
+.student-accounts-container .print-card-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--sa-gold);
+}
+
+.student-accounts-container .print-card-brand img {
+    display: block;
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.student-accounts-container .print-card-brand strong,
+.student-accounts-container .print-card-brand span {
+    display: block;
+}
+
+.student-accounts-container .print-card-brand strong {
+    color: var(--sa-primary);
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.student-accounts-container .print-card-brand span {
+    margin-top: 4px;
+    color: var(--sa-text-soft);
+    font-size: 11px;
+}
+
+.student-accounts-container .print-card-school {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 15px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--sa-beige);
+}
+
+.student-accounts-container .print-card-school span {
+    color: var(--sa-text-soft);
+    font-size: 10px;
+}
+
+.student-accounts-container .print-card-school strong {
+    color: var(--sa-primary);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.student-accounts-container .print-card-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 135px;
+    align-items: center;
+    gap: 18px;
+    padding: 20px 0;
+}
+
+.student-accounts-container .print-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    min-width: 0;
+}
+
+.student-accounts-container .print-card-details p {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+    margin: 0;
+}
+
+.student-accounts-container .print-card-details p span {
+    color: var(--sa-text-soft);
+    font-size: 10px;
+}
+
+.student-accounts-container .print-card-details p strong {
+    color: var(--sa-primary);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.student-accounts-container .qr-code-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 135px;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.student-accounts-container #studentQrCode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 128px;
+    width: 128px;
+    height: 128px;
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+    border: 1px solid var(--sa-border);
+    border-radius: 9px;
+    background: var(--sa-white);
+}
+
+.student-accounts-container #studentQrCode img,
+.student-accounts-container #studentQrCode canvas {
+    display: block;
+    flex: 0 0 116px;
+    width: 116px !important;
+    height: 116px !important;
+    margin: 0;
+    object-fit: contain;
+}
+
+.student-accounts-container .qr-code-wrap small {
+    color: var(--sa-text-soft);
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+.student-accounts-container .print-card-note {
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px solid var(--sa-border);
+    color: var(--sa-text-soft);
+    font-size: 10px;
+    line-height: 1.9;
+    text-align: center;
+}
+
+/* =====================================================
+   12. تنبيه المحافظة على بيانات الحساب
+   ===================================================== */
+
+.student-accounts-container .credentials-warning {
+    margin: 17px 0 0;
+    padding: 12px 14px;
+    border: 1px solid #EAD8B7;
+    border-radius: 9px;
+    color: #79551D;
+    background: #FBF5E9;
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+/* =====================================================
+   13. التذييل
+   ===================================================== */
+
+.student-accounts-container .page-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-top: 25px;
+    padding: 15px 2px 0;
+    border-top: 1px solid var(--sa-border);
+    color: #958780;
+    font-size: 10px;
+    text-align: center;
+}
+
+/* =====================================================
+   14. ترتيب لوحة بيانات الحساب على الشاشات الكبيرة
+   ===================================================== */
+
+@media (min-width: 801px) {
+
+    .student-accounts-container .credentials-panel {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+        column-gap: 24px;
+        align-items: start;
+    }
+
+    .student-accounts-container .credentials-panel > .panel-heading {
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    .student-accounts-container .credentials-panel > .student-credentials-table-wrap {
+        grid-column: 1;
+        grid-row: 2;
+        align-self: start;
+    }
+
+    .student-accounts-container .credentials-panel > .student-tools {
+        grid-column: 1;
+        grid-row: 3;
+        align-self: start;
+        margin-top: 16px;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        width: 100%;
+        min-width: 0;
+        margin-top: 0;
+        padding: 0;
+        border-top: 0;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel .student-print-card {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        padding: 15px;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel .print-card-content {
+        grid-template-columns: minmax(0, 1fr) 105px;
+        gap: 10px;
+        padding: 13px 0;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel .qr-code-wrap {
+        width: 105px;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel #studentQrCode {
+        flex-basis: 100px;
+        width: 100px;
+        height: 100px;
+        padding: 4px;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel #studentQrCode img,
+    .student-accounts-container .credentials-panel > .student-qr-panel #studentQrCode canvas {
+        flex-basis: 90px;
+        width: 90px !important;
+        height: 90px !important;
+    }
+
+    .student-accounts-container .credentials-panel > .credentials-warning {
+        grid-column: 1;
+        grid-row: 4;
+        align-self: start;
+        margin-top: 16px;
+    }
+}
+
+/* =====================================================
+   15. الشاشات المتوسطة
+   ===================================================== */
+
+@media (max-width: 1100px) {
+
+    .student-accounts-container .panel {
+        padding: 20px;
+    }
+}
+
+/* =====================================================
+   16. الهواتف والأجهزة الصغيرة
+   ===================================================== */
+
+@media (max-width: 800px) {
+
+    .student-accounts-container .credentials-panel {
+        display: block;
+    }
+
+    .student-accounts-container .credentials-panel > .student-qr-panel {
+        margin-top: 22px;
+        padding-top: 22px;
+        border-top: 1px dashed var(--sa-border);
+    }
+}
+
+@media (max-width: 600px) {
+
+    .student-accounts-container .page-header {
+        margin-bottom: 19px;
+    }
+
+    .student-accounts-container .page-header h1 {
+        font-size: 23px;
+    }
+
+    .student-accounts-container .page-header p {
+        font-size: 11px;
+    }
+
+    .student-accounts-container .notice-card {
+        gap: 10px;
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+
+    .student-accounts-container .notice-icon {
+        flex-basis: 34px;
+        width: 34px;
+        height: 34px;
+        font-size: 17px;
+    }
+
+    .student-accounts-container .panel {
+        padding: 15px;
+        margin-bottom: 17px;
+        border-radius: 13px;
+    }
+
+    .student-accounts-container .panel-heading {
+        align-items: flex-start;
+        gap: 10px;
+        margin-bottom: 18px;
+    }
+
+    .student-accounts-container .panel-heading h2 {
+        font-size: 15px;
+    }
+
+    .student-accounts-container .student-panel-icon {
+        flex-basis: 39px;
+        width: 39px;
+        height: 39px;
+        font-size: 19px;
+    }
+
+    .student-accounts-container .student-form-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 15px;
+    }
+
+    .student-accounts-container .student-form-actions,
+    .student-accounts-container .student-tools {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .student-accounts-container .student-form-actions .btn,
+    .student-accounts-container .student-tools .btn {
+        width: 100%;
+    }
+
+    .student-accounts-container .student-credentials-table th,
+    .student-accounts-container .student-credentials-table td {
+        padding: 9px 8px;
+        font-size: 11px;
+    }
+
+    .student-accounts-container .student-credentials-table th {
+        width: 110px;
+        white-space: normal;
+    }
+
+    .student-accounts-container .student-credentials-table .credential-copy {
+        display: flex;
+        width: fit-content;
+        min-height: 30px;
+        margin: 7px 0 0;
+    }
+
+    .student-accounts-container .student-print-card {
+        padding: 15px;
+    }
+
+    .student-accounts-container .print-card-content {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .student-accounts-container .qr-code-wrap {
+        width: 100%;
+    }
+
+    .student-accounts-container .credentials-status {
+        padding: 6px 9px;
+        font-size: 9px;
+    }
+
+    .student-accounts-container .page-footer {
+        margin-top: 20px;
+    }
+}
+
+/* =====================================================
+   17. الطباعة
+   ===================================================== */
+
+@media print {
+
+    @page {
+        size: A5 portrait;
+        margin: 6mm;
+    }
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    #studentQrPanel,
+    #studentQrPanel * {
+        visibility: visible !important;
+    }
+
+    #studentQrPanel {
+        display: block !important;
+        position: absolute !important;
+        top: 0 !important;
+        right: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: 0 !important;
+    }
+
+    #studentPrintCard {
+        display: block !important;
+        width: 100% !important;
+        max-width: 135mm !important;
+        margin: 0 auto !important;
+        padding: 5mm !important;
+        border: 1px solid #D8CEC3 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        break-inside: avoid !important;
+    }
+
+    .student-accounts-container #studentQrCode {
+        flex-basis: 35mm !important;
+        width: 35mm !important;
+        height: 35mm !important;
+        padding: 1mm !important;
+    }
+
+    .student-accounts-container #studentQrCode img,
+    .student-accounts-container #studentQrCode canvas {
+        flex-basis: 32mm !important;
+        width: 32mm !important;
+        height: 32mm !important;
+    }
+
+    #studentQrPanel[hidden] {
+        display: none !important;
+    }
+}

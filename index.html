@@ -1,0 +1,190 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إيلابرات | ILABRAT Students</title>
+
+    <meta name="description"
+        content="إيلابرات للطلاب والمعلمين وإدارة المدارس والجداول الدراسية.">
+
+    <!-- أيقونة الموقع -->
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+    <link rel="apple-touch-icon" href="assets/ilabrat-logo.png">
+
+    <!-- الخط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- تنسيق الصفحة الرئيسية -->
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+
+    <main class="home-page">
+
+        <div class="home-shell">
+
+            <!-- الشعار -->
+            <header class="home-header">
+
+                <a class="brand" href="index.html"
+                    aria-label="إيلابرات - الصفحة الرئيسية">
+
+                    <img
+                        src="assets/ilabrat-logo.png"
+                        alt="شعار إيلابرات"
+                        class="brand-logo">
+
+                    <div class="brand-text">
+                        <h1>إيلابرات</h1>
+                        <span>ILABRAT STUDENTS</span>
+                    </div>
+
+                </a>
+
+                <div class="header-label">
+                    <span class="status-dot"></span>
+                    <span>بوابتك التعليمية</span>
+                </div>
+
+            </header>
+
+            <!-- مقدمة الصفحة -->
+            <section class="welcome-section">
+
+                <span class="welcome-label">أهلاً بك في إيلابرات</span>
+
+                <h2>
+                    تعليمك يبدأ
+                    <span>من هنا</span>
+                </h2>
+
+                <p>
+                    اختر نوع حسابك للوصول إلى الخدمات التعليمية المخصصة لك.
+                </p>
+
+            </section>
+
+            <!-- اختيار نوع الحساب -->
+            <section class="accounts-section"
+                aria-labelledby="accounts-title">
+
+                <div class="section-heading">
+                    <h3 id="accounts-title">كيف تريد الدخول؟</h3>
+                    <span>اختر حسابك</span>
+                </div>
+
+                <div class="accounts-grid">
+
+                    <!-- الطالب -->
+                    <a class="account-card"
+                        href="login.html?role=student">
+
+                        <div class="card-top">
+                            <div class="account-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M2.5 9 12 4l9.5 5L12 14 2.5 9Z"/>
+                                    <path d="M6.5 11.2V16c3.4 2.7 7.6 2.7 11 0v-4.8"/>
+                                    <path d="M21.5 9v6"/>
+                                </svg>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">←</span>
+                        </div>
+
+                        <div class="card-content">
+                            <h4>دخول الطالب</h4>
+                            <p>اطّلع على جدولك الدراسي ودروسك وواجباتك.</p>
+                        </div>
+
+                        <span class="card-link">المتابعة إلى الدخول</span>
+
+                    </a>
+
+                    <!-- المعلم -->
+                    <a class="account-card"
+                        href="login.html?role=teacher">
+
+                        <div class="card-top">
+                            <div class="account-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H12v17H5.5A2.5 2.5 0 0 0 3 22V5.5Z"/>
+                                    <path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H12v17h6.5A2.5 2.5 0 0 1 21 22V5.5Z"/>
+                                    <path d="M6.5 7H9M6.5 10H9M15 7h2.5M15 10h2.5"/>
+                                </svg>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">←</span>
+                        </div>
+
+                        <div class="card-content">
+                            <h4>دخول المعلم</h4>
+                            <p>تابع صفوفك وجداولك والدروس التعليمية.</p>
+                        </div>
+
+                        <span class="card-link">المتابعة إلى الدخول</span>
+
+                    </a>
+
+                    <!-- مدير المدرسة -->
+                    <a class="account-card"
+                        href="login.html?role=school_admin">
+
+                        <div class="card-top">
+                            <div class="account-icon">
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M3 21h18M5 21V7l7-4 7 4v14"/>
+                                    <path d="M9 21v-5h6v5"/>
+                                    <path d="M8 9h.01M12 9h.01M16 9h.01M8 12h.01M12 12h.01M16 12h.01"/>
+                                </svg>
+                            </div>
+                            <span class="card-arrow" aria-hidden="true">←</span>
+                        </div>
+
+                        <div class="card-content">
+                            <h4>مدير المدرسة</h4>
+                            <p>أدر الصفوف والشعب والجداول والإعلانات المدرسية.</p>
+                        </div>
+
+                        <span class="card-link">المتابعة إلى الدخول</span>
+
+                    </a>
+
+                </div>
+
+            </section>
+
+            <!-- التذييل -->
+            <footer class="home-footer">
+
+                <div class="footer-line"></div>
+
+                <p>
+                    <span>ILABRAT</span>
+                    <span class="footer-separator">•</span>
+                    منصة تعليمية لتنظيم الجداول المدرسية
+                </p>
+
+                <span class="footer-rights">
+                    جميع الحقوق محفوظة © <span id="currentYear"></span>
+                </span>
+
+            </footer>
+
+        </div>
+
+    </main>
+
+    <script>
+        document.getElementById("currentYear").textContent =
+            new Date().getFullYear();
+    </script>
+
+</body>
+</html>

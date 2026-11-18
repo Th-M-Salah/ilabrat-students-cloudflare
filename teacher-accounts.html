@@ -1,0 +1,586 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <title>حسابات المعلمين | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/teacher-accounts.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- القائمة الجانبية الموحدة لمدير المدرسة -->
+    <aside class="sidebar">
+
+        <a href="index.html" class="brand">
+            <img
+                src="assets/ilabrat-logo.png"
+                alt="شعار إيلابرات"
+                class="brand-icon">
+
+            <span class="brand-text">
+                <strong>إيلابرات</strong>
+                <small>ILABRAT · ADMIN</small>
+            </span>
+        </a>
+
+        <!-- بيانات المدرسة -->
+        <div class="school-context-card school-card">
+            <div class="school-context-icon school-icon">🏫</div>
+
+            <div class="school-context-text">
+                <small>إدارة المدرسة</small>
+                <strong id="schoolName">جارٍ تحميل اسم المدرسة...</strong>
+            </div>
+        </div>
+
+        <div class="sidebar-heading nav-heading">
+            القائمة الرئيسية
+        </div>
+
+        <nav class="sidebar-nav navigation" aria-label="القائمة الرئيسية">
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>الرئيسية</span>
+            </a>
+
+            <a href="teacher-registration.html" class="nav-item">
+                <span class="nav-icon">＋</span>
+                <span>إضافة معلم</span>
+            </a>
+
+            <a href="student-accounts.html" class="nav-item">
+                <span class="nav-icon">＋</span>
+                <span>إضافة طالب</span>
+            </a>
+
+            <a
+                href="teacher-accounts.html"
+                class="nav-item active"
+                aria-current="page">
+
+                <span class="nav-icon">♙</span>
+                <span>حسابات المعلمين</span>
+            </a>
+<a href="student-management.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>حسابات الطلاب</span>
+            </a>
+          
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>إدارة الجدول</span>
+            </a>
+
+            <a href="admin-view-timetables.html" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>عرض الجداول</span>
+            </a>
+
+          
+
+            <a href="index.html" class="nav-item" id="logoutLink">
+                <span class="nav-icon">↪</span>
+                <span>تسجيل الدخول</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="footer-icon">i</div>
+
+            <div class="sidebar-footer-text">
+                <strong>إدارة أكثر سهولة</strong>
+                <p>نظّم جدول مدرستك من مكان واحد.</p>
+            </div>
+
+            <span id="adminName" hidden>مدير المدرسة</span>
+
+        </div>
+
+    </aside>
+
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+
+        <!-- رأس الصفحة -->
+        <header class="topbar">
+
+            <div>
+                <div class="breadcrumb">
+                    الرئيسية / إدارة المدرسة / حسابات المعلمين
+                </div>
+
+                <h1>حسابات المعلمين</h1>
+
+                <p>
+                    إدارة حسابات المعلمين وبياناتهم داخل المدرسة.
+                </p>
+            </div>
+
+            <button
+                class="primary-button"
+                id="refreshTeachers"
+                type="button">
+
+                <span>↻</span>
+                تحديث القائمة
+
+            </button>
+
+        </header>
+
+
+        <!-- بطاقة الترحيب -->
+        <section class="welcome-banner">
+
+            <div>
+                <span class="banner-label">الكادر التدريسي</span>
+
+                <h2>إدارة حسابات المعلمين</h2>
+
+                <p>
+                    يمكنك الاطلاع على المعلمين وتعديل بياناتهم أو حذف حساباتهم.
+                </p>
+            </div>
+
+            <div class="banner-decoration">✦</div>
+
+        </section>
+
+
+        <!-- الإحصائيات -->
+        <section class="stats-grid">
+
+            <article class="stat-card">
+
+                <div class="stat-icon teachers-icon">♙</div>
+
+                <div>
+                    <span>إجمالي المعلمين</span>
+                    <strong id="totalTeachers">0</strong>
+                    <small>حسابات المعلمين في المدرسة</small>
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon subjects-icon">▤</div>
+
+                <div>
+                    <span>المواد الدراسية</span>
+                    <strong id="totalSubjects">0</strong>
+                    <small>المواد المسندة للمعلمين</small>
+                </div>
+
+            </article>
+
+
+            <article class="stat-card">
+
+                <div class="stat-icon classes-icon">▦</div>
+
+                <div>
+                    <span>الشُعب المغطاة</span>
+                    <strong id="totalClasses">0</strong>
+                    <small>الشُعب المرتبطة بالمعلمين</small>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- جدول المعلمين -->
+        <section class="content-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <h2>قائمة المعلمين</h2>
+
+                    <p>
+                        بيانات المعلمين المرتبطين بمدرستك.
+                    </p>
+                </div>
+
+                <div class="panel-header-actions">
+
+                    <button
+                        class="secondary-button"
+                        id="clearSearch"
+                        type="button">
+
+                        إعادة ضبط البحث
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- البحث والتصفية -->
+            <div class="filters">
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="search"
+                        id="teacherSearch"
+                        placeholder="ابحث باسم المعلم أو المادة أو الصف..."
+                        aria-label="البحث عن معلم">
+
+                </div>
+
+
+                <select
+                    id="subjectFilter"
+                    aria-label="تصفية حسب المادة">
+
+                    <option value="">جميع المواد</option>
+
+                </select>
+
+
+                <select
+                    id="stageFilter"
+                    aria-label="تصفية حسب المرحلة">
+
+                    <option value="">جميع المراحل</option>
+                    <option value="ابتدائية">ابتدائية</option>
+                    <option value="متوسطة">متوسطة</option>
+                    <option value="إعدادية">إعدادية</option>
+
+                </select>
+
+            </div>
+
+
+            <!-- رسائل الصفحة -->
+            <p
+                id="pageMessage"
+                class="form-message"
+                role="status"
+                aria-live="polite">
+            </p>
+
+
+            <!-- الجدول -->
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>المعلم</th>
+                            <th>المواد</th>
+                            <th>المرحلة</th>
+                            <th>الشُعب المسندة</th>
+                            <th>حالة الحساب</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="teachersTableBody">
+
+                        <tr>
+                            <td colspan="6" class="empty-state">
+                                جارٍ تحميل حسابات المعلمين...
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div class="table-footer">
+
+                <span id="resultsCount">
+                    عدد المعلمين: 0
+                </span>
+
+                <span>
+                    إيلابرات لإدارة المدارس
+                </span>
+
+            </div>
+
+        </section>
+
+
+        <!-- تذييل الصفحة -->
+        <footer class="page-footer">
+
+            <span>© ILABRAT — إيلابرات</span>
+
+            <span>نظام إدارة المدرسة</span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- إشعار الصفحة -->
+<div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite">
+</div>
+
+
+<!-- نافذة تعديل بيانات المعلم -->
+<div
+    class="modal-overlay"
+    id="editTeacherModal"
+    aria-hidden="true">
+
+    <section
+        class="teacher-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="editTeacherTitle">
+
+        <header class="modal-header">
+
+            <div>
+                <h2 id="editTeacherTitle">تعديل بيانات المعلم</h2>
+                <p>تعديل اسم المعلم ورقم هاتفه.</p>
+            </div>
+
+            <button
+                class="modal-close"
+                type="button"
+                data-close-modal
+                aria-label="إغلاق">
+
+                ×
+
+            </button>
+
+        </header>
+
+
+        <div class="modal-body">
+
+            <p class="modal-notice">
+                يمكنك تعديل الاسم ورقم الهاتف.
+                تعديل المواد والشُعب المسندة غير متاح حاليًا.
+            </p>
+
+
+            <form id="editTeacherForm">
+
+                <input
+                    type="hidden"
+                    id="editTeacherId"
+                    name="teacher_id">
+
+
+                <div class="modal-form-grid">
+
+                    <div class="form-field full-width">
+
+                        <label for="editTeacherName">
+                            اسم المعلم الكامل *
+                        </label>
+
+                        <input
+                            id="editTeacherName"
+                            name="full_name"
+                            type="text"
+                            required
+                            maxlength="150">
+
+                    </div>
+
+
+                    <div class="form-field full-width">
+
+                        <label for="editTeacherPhone">
+                            رقم الهاتف
+                        </label>
+
+                        <input
+                            id="editTeacherPhone"
+                            name="phone"
+                            type="tel"
+                            maxlength="30">
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="modal-status"
+                    id="editTeacherStatusMessage"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        class="primary-button"
+                        type="submit">
+
+                        حفظ التعديلات
+
+                    </button>
+
+
+                    <button
+                        class="secondary-button"
+                        type="button"
+                        data-close-modal>
+
+                        إلغاء
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- نافذة حذف حساب المعلم -->
+<div
+    class="modal-overlay"
+    id="deleteTeacherModal"
+    aria-hidden="true">
+
+    <section
+        class="teacher-modal modal-small"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="deleteTeacherTitle">
+
+        <header class="modal-header">
+
+            <div>
+                <h2 id="deleteTeacherTitle">حذف حساب المعلم</h2>
+                <p>تأكد من المعلم قبل تأكيد الحذف.</p>
+            </div>
+
+            <button
+                class="modal-close"
+                type="button"
+                data-close-modal
+                aria-label="إغلاق">
+
+                ×
+
+            </button>
+
+        </header>
+
+
+        <div class="modal-body">
+
+            <p class="modal-notice danger" id="deleteTeacherMessage">
+                لا يمكن التراجع عن عملية حذف الحساب.
+            </p>
+
+
+            <form id="deleteTeacherForm">
+
+                <input
+                    type="hidden"
+                    id="deleteTeacherId"
+                    name="teacher_id">
+
+
+                <div class="form-field">
+
+                    <label for="deleteTeacherName">
+                        المعلم المراد حذفه
+                    </label>
+
+                    <input
+                        id="deleteTeacherName"
+                        type="text"
+                        readonly>
+
+                </div>
+
+
+                <div
+                    class="modal-status"
+                    id="deleteTeacherStatus"
+                    role="status"
+                    aria-live="polite">
+                </div>
+
+
+                <div class="modal-actions">
+
+                    <button
+                        class="primary-button"
+                        type="submit">
+
+                        تأكيد الحذف
+
+                    </button>
+
+
+                    <button
+                        class="secondary-button"
+                        type="button"
+                        data-close-modal>
+
+                        إلغاء
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- ملفات JavaScript الخارجية فقط -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="js/teacher-accounts.js" defer></script>
+
+</body>
+</html>

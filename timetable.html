@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl" data-auth-scope="student">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+    <title>مساحتي الدراسية | إيلابرات</title>
+    <meta name="description" content="الجدول الدراسي ومعلومات الطالب وإعلانات المدرسة في إيلابرات.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+    <link rel="stylesheet" href="css/timetable.css">
+</head>
+
+<body>
+<div class="app-container">
+
+    <header class="app-header">
+        <a href="index.html" class="brand" aria-label="إيلابرات">
+            <img src="assets/ilabrat-logo.png" alt="إيلابرات" class="brand-icon">
+            <span class="brand-text">
+                <strong>إيلابرات</strong>
+                <small>ILABRAT STUDENTS</small>
+            </span>
+        </a>
+
+        <div class="header-actions">
+            <div class="header-student">
+                <span class="student-status-dot"></span>
+                <span>بوابة الطالب</span>
+            </div>
+
+            <button type="button" id="logoutButton" class="logout-button">
+                <span aria-hidden="true">↪</span>
+                <span>تسجيل الخروج</span>
+            </button>
+        </div>
+    </header>
+
+    <main class="student-main">
+
+        <section class="welcome-card">
+            <div class="welcome-content">
+                <p class="welcome-eyebrow">مساحتك الدراسية</p>
+                <h1>أهلاً بك، <span id="welcomeStudentName">عزيزي الطالب</span></h1>
+                <p id="welcomeSchoolName">نتمنى لك يوماً دراسياً موفقاً</p>
+            </div>
+            <div class="welcome-symbol" aria-hidden="true">
+                <span>✦</span>
+            </div>
+            <span class="welcome-orbit orbit-one" aria-hidden="true"></span>
+            <span class="welcome-orbit orbit-two" aria-hidden="true"></span>
+        </section>
+
+        <nav class="student-tabs" aria-label="أقسام حساب الطالب">
+            <button type="button" class="student-tab" data-view="account" aria-selected="false">
+                <span class="tab-icon">♙</span>
+                <span>حسابي</span>
+            </button>
+
+            <button type="button" class="student-tab active" data-view="daily" aria-selected="true">
+                <span class="tab-icon">▦</span>
+                <span>جدولي اليومي</span>
+            </button>
+
+            <button type="button" class="student-tab" data-view="weekly" aria-selected="false">
+                <span class="tab-icon">▤</span>
+                <span>الجدول الأسبوعي</span>
+            </button>
+
+            <button type="button" class="student-tab" data-view="announcements" aria-selected="false">
+                <span class="tab-icon">◉</span>
+                <span>الإعلانات</span>
+                <span id="announcementCount" class="tab-count" hidden>0</span>
+            </button>
+        </nav>
+
+        <!-- حسابي -->
+        <section id="accountView" class="view-panel" hidden>
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">بياناتك الدراسية</p>
+                    <h2>معلومات الحساب</h2>
+                    <p class="section-subtitle">معلوماتك المسجلة لدى المدرسة</p>
+                </div>
+                <span class="heading-icon">♙</span>
+            </div>
+
+            <div id="accountContent" class="account-grid">
+                <div class="loading-state">جارٍ تحميل معلومات الحساب...</div>
+            </div>
+        </section>
+
+        <!-- الجدول اليومي -->
+        <section id="dailyView" class="view-panel">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">تنظيم يومك الدراسي</p>
+                    <h2 id="currentDayTitle">جدولي اليومي</h2>
+                    <p id="currentDate" class="section-subtitle">جارٍ تحميل التاريخ...</p>
+                </div>
+                <span class="heading-icon">▦</span>
+            </div>
+
+            <nav class="days-navigation" aria-label="أيام الأسبوع">
+                <button type="button" class="day-tab" data-day="sun">
+                    <span>الأحد</span><small></small>
+                </button>
+                <button type="button" class="day-tab" data-day="mon">
+                    <span>الاثنين</span><small></small>
+                </button>
+                <button type="button" class="day-tab" data-day="tue">
+                    <span>الثلاثاء</span><small></small>
+                </button>
+                <button type="button" class="day-tab" data-day="wed">
+                    <span>الأربعاء</span><small></small>
+                </button>
+                <button type="button" class="day-tab" data-day="thu">
+                    <span>الخميس</span><small></small>
+                </button>
+            </nav>
+
+            <div id="dayContent" class="day-content" aria-live="polite">
+                <div class="loading-state">جارٍ تحميل الجدول الدراسي...</div>
+            </div>
+
+            <section id="dailyPostsSection" class="daily-posts-section" hidden>
+                <div class="subsection-heading">
+                    <div>
+                        <h3>واجبات وإعلانات هذا اليوم</h3>
+                        <p>المنشورات والصور التي نشرها المعلمون لشعبتك</p>
+                    </div>
+                </div>
+                <div id="dailyPostsContent" class="posts-list"></div>
+            </section>
+
+            <footer class="day-navigation-footer">
+                <button type="button" id="previousDay" class="navigation-button">
+                    اليوم السابق
+                </button>
+                <span id="dayPosition" class="day-position"></span>
+                <button type="button" id="nextDay" class="navigation-button primary-navigation">
+                    اليوم التالي
+                </button>
+            </footer>
+        </section>
+
+        <!-- الجدول الأسبوعي الموحد -->
+        <section id="weeklyView" class="view-panel" hidden>
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">نظرة شاملة</p>
+                    <h2>الجدول الأسبوعي</h2>
+                    <p id="weeklyClassInfo" class="section-subtitle">
+                        جدول شعبتك المنشور من المدرسة
+                    </p>
+                </div>
+                <span class="heading-icon">▤</span>
+            </div>
+
+            <div class="weekly-note">
+                <span>ⓘ</span>
+                هذا هو الجدول الأسبوعي المعتمد والمنشور من إدارة المدرسة، مع تواريخ أيام الأسبوع.
+            </div>
+
+            <div class="weekly-table-wrapper">
+                <table class="weekly-table">
+                    <thead id="weeklyTableHead"></thead>
+                    <tbody id="weeklyTableBody">
+                        <tr>
+                            <td>جارٍ تحميل الجدول الأسبوعي...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="weekly-scroll-hint">
+                يمكنك تمرير الجدول أفقياً لمشاهدة جميع الحصص.
+            </p>
+        </section>
+
+        <!-- الإعلانات -->
+        <section id="announcementsView" class="view-panel" hidden>
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">ابقَ على اطلاع</p>
+                    <h2>الإعلانات والواجبات</h2>
+                    <p class="section-subtitle">
+                        المنشورات والمرفقات التي يشاركها معلموك ومدرستك
+                    </p>
+                </div>
+                <span class="heading-icon">◉</span>
+            </div>
+
+            <div id="announcementsContent" class="posts-list">
+                <div class="loading-state">جارٍ تحميل الإعلانات...</div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="app-footer">
+        <span>إيلابرات © <span id="currentYear"></span></span>
+        <span>تعليم أكثر تنظيماً</span>
+    </footer>
+</div>
+
+<dialog id="imageViewer" class="image-viewer">
+    <button
+        type="button"
+        id="closeImageViewer"
+        class="close-image-viewer"
+        aria-label="إغلاق"
+    >×</button>
+    <img id="viewerImage" src="" alt="مرفق من المعلم">
+    <p id="viewerCaption"></p>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="js/timetable.js"></script>
+</body>
+</html>

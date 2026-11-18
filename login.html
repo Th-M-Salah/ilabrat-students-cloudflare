@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <meta name="description"
+        content="تسجيل الدخول إلى تطبيق جداول إيلابرات.">
+
+    <title>تسجيل الدخول | جداول إيلابرات</title>
+
+    <!-- أيقونة الموقع والشعار -->
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+    <link rel="apple-touch-icon" href="assets/ilabrat-logo.png">
+
+    <!-- الخط -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- التنسيق -->
+    <link rel="stylesheet" href="css/login.css">
+
+    <!-- Supabase -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+        defer></script>
+
+    <script src="supabase-config.js" defer></script>
+
+    <!-- تسجيل الدخول -->
+    <script src="js/login.js" defer></script>
+</head>
+
+<body class="login-page">
+
+    <main class="login-layout">
+
+        <!-- الجانب التعريفي -->
+        <section class="login-brand" aria-label="عن إيلابرات">
+
+            <a href="index.html"
+                class="brand-logo-link"
+                aria-label="العودة إلى الصفحة الرئيسية">
+
+                <img
+                    src="assets/ilabrat-logo.png"
+                    alt="شعار إيلابرات"
+                    class="brand-logo">
+
+            </a>
+
+            <span class="brand-kicker">ILABRAT STUDENTS</span>
+
+            <h1>
+                كل جداولك المدرسية
+                <br>
+                في مكان واحد
+            </h1>
+
+            <p>
+                منصة منظمة تساعد إدارة المدرسة والطلاب على متابعة
+                الجداول والإعلانات الدراسية بسهولة.
+            </p>
+
+            <div class="brand-bottom-note">
+                <span class="note-dot"></span>
+                تجربة تعليمية أكثر تنظيمًا
+            </div>
+
+        </section>
+
+        <!-- لوحة تسجيل الدخول -->
+        <section class="login-panel">
+
+            <div class="login-card">
+
+                <a href="index.html"
+                    class="mobile-brand"
+                    aria-label="العودة إلى الصفحة الرئيسية">
+
+                    <img
+                        src="assets/ilabrat-logo.png"
+                        alt="شعار إيلابرات">
+
+                </a>
+
+                <div class="login-header">
+
+                    <span class="login-overline">
+                        مرحبًا بك في إيلابرات
+                    </span>
+
+                    <h2>تسجيل الدخول</h2>
+
+                    <p>
+                        أدخل بريدك الإلكتروني وكلمة المرور للمتابعة.
+                    </p>
+
+                    <div id="selectedAccount" class="selected-account" hidden>
+                        <span class="selected-account-dot"></span>
+                        <span>
+                            نوع الحساب:
+                            <strong id="selectedAccountName"></strong>
+                        </span>
+                    </div>
+
+                </div>
+
+                <form id="loginForm" novalidate>
+
+                    <div class="form-group">
+
+                        <label for="email">
+                            البريد الإلكتروني
+                        </label>
+
+                        
+<input
+    id="email"
+    name="email"
+    type="text"
+    autocomplete="username"
+    placeholder="البريد الإلكتروني أو اسم المستخدم"
+    required>
+
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="password">
+                            كلمة المرور
+                        </label>
+
+                        <div class="password-field">
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                autocomplete="current-password"
+                                placeholder="أدخل كلمة المرور"
+                                required>
+
+                            <button
+                                id="togglePassword"
+                                class="password-toggle"
+                                type="button"
+                                aria-label="إظهار كلمة المرور"
+                                aria-pressed="false">
+
+                                إظهار
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="forgot-password-wrapper">
+
+                        <a href="forgot-password.html">
+                            هل نسيت كلمة المرور؟
+                        </a>
+
+                    </div>
+
+                    <p
+                        id="loginMessage"
+                        class="login-message"
+                        role="status"
+                        aria-live="polite"
+                        hidden></p>
+
+                    <button
+                        id="loginButton"
+                        class="login-button"
+                        type="submit">
+
+                        <span class="button-label">
+                            تسجيل الدخول
+                        </span>
+
+                        <span class="button-arrow" aria-hidden="true">
+                            ←
+                        </span>
+
+                    </button>
+
+                </form>
+
+                <p class="security-note">
+                    <span aria-hidden="true">●</span>
+                    بيانات حسابك محمية، ويظهر لك المحتوى المسموح حسب صلاحياتك.
+                </p>
+
+                <a class="back-home-link" href="index.html">
+                    العودة إلى الصفحة الرئيسية
+                </a>
+
+            </div>
+
+            <footer class="login-footer">
+                © <span id="currentYear"></span>
+                إيلابرات — جميع الحقوق محفوظة
+            </footer>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,554 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-auth-scope="teacher">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <title>لوحة المعلم | إيلابرات ILABRAT</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/teacher.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/teacher.js" defer></script>
+</head>
+
+<body>
+
+<div class="teacher-layout">
+
+    <aside class="teacher-sidebar" id="teacherSidebar">
+
+        <a href="teacher.html" class="teacher-brand">
+            <img src="assets/ilabrat-logo.png" alt="شعار إيلابرات">
+            <span>
+                <strong>إيلابرات</strong>
+                <small>ILABRAT · TEACHER</small>
+            </span>
+        </a>
+
+        <div class="teacher-school-card">
+            <div class="school-icon">🏫</div>
+            <div>
+                <strong id="schoolDisplayName">مدرستي</strong>
+                <small>بوابة المعلم</small>
+            </div>
+        </div>
+
+        <nav class="teacher-nav" aria-label="القائمة الرئيسية">
+
+            <div class="nav-caption">القائمة الرئيسية</div>
+
+            <button type="button" class="teacher-nav-link active" data-section="schedule">
+                <span class="nav-symbol">▦</span>
+                <span>جدولي الدراسي</span>
+            </button>
+
+            <!-- الجدول الأسبوعي الجديد -->
+            <button type="button" class="teacher-nav-link" data-section="weekly">
+                <span class="nav-symbol">▦</span>
+                <span>الجدول الأسبوعي</span>
+            </button>
+
+            <button type="button" class="teacher-nav-link" data-section="homework">
+                <span class="nav-symbol">✎</span>
+                <span>إرسال واجب</span>
+            </button>
+
+            <button type="button" class="teacher-nav-link" data-section="assignments">
+                <span class="nav-symbol">♧</span>
+                <span>الشعب المكلّف بها</span>
+            </button>
+
+            <button type="button" class="teacher-nav-link" data-section="announcements">
+                <span class="nav-symbol">▤</span>
+                <span>الإعلانات والتنبيهات</span>
+                <span class="nav-count" id="announcementBadge" hidden>0</span>
+            </button>
+
+            <div class="nav-caption">الحساب</div>
+
+            <button type="button" class="teacher-nav-link" data-section="profile">
+                <span class="nav-symbol">♙</span>
+                <span>حسابي</span>
+            </button>
+
+            <button type="button" class="teacher-nav-link logout-link" id="logoutButton">
+                <span class="nav-symbol">↪</span>
+                <span>تسجيل الخروج</span>
+            </button>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <span class="footer-mark">ILABRAT</span>
+            <small>منصة إيلابرات التعليمية</small>
+        </div>
+
+    </aside>
+
+    <main class="teacher-main">
+
+        <header class="teacher-topbar">
+
+            <div class="topbar-right">
+                <button type="button" class="mobile-menu-button" id="mobileMenuButton" aria-label="فتح القائمة">
+                    ☰
+                </button>
+
+                <div>
+                    <span class="topbar-greeting">بوابة المعلم</span>
+                    <h1 id="pageHeading">جدولي الدراسي</h1>
+                </div>
+            </div>
+
+            <div class="teacher-top-profile">
+                <div class="top-profile-avatar" id="teacherAvatar">م</div>
+                <div class="top-profile-info">
+                    <strong id="teacherDisplayName">جارٍ تحميل الحساب...</strong>
+                    <small>المعلم</small>
+                </div>
+            </div>
+
+        </header>
+
+        <div class="teacher-content">
+
+            <div class="page-message" id="pageMessage" role="status" aria-live="polite" hidden></div>
+
+            <!-- القسم الأول: الجدول اليومي -->
+            <section class="teacher-section active" id="section-schedule">
+
+                <div class="welcome-panel">
+                    <div>
+                        <span class="welcome-label">مرحباً بك</span>
+                        <h2>أهلاً بك في بوابة المعلم</h2>
+                        <p>يمكنك متابعة جدولك الدراسي وإدارة واجبات شعبك من مكان واحد.</p>
+                        <div class="welcome-date" id="currentDate"></div>
+                    </div>
+
+                    <div class="welcome-decoration" aria-hidden="true">📚</div>
+                </div>
+
+                <div class="stats-grid">
+
+                    <article class="stat-card">
+                        <div class="stat-icon">▦</div>
+                        <div>
+                            <span>حصص اليوم</span>
+                            <strong id="todayLessonCount">—</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon">✎</div>
+                        <div>
+                            <span>واجباتي المنشورة</span>
+                            <strong id="assignmentCount">—</strong>
+                        </div>
+                    </article>
+
+                    <article class="stat-card">
+                        <div class="stat-icon">▧</div>
+                        <div>
+                            <span>المرفقات</span>
+                            <strong id="attachmentCount">—</strong>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="content-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-eyebrow">الجدول اليومي</span>
+                            <h2>جدولي الدراسي</h2>
+                            <p>الحصص المنشورة والمسندة إليك من إدارة المدرسة.</p>
+                        </div>
+
+                        <button type="button" class="outline-button" id="refreshScheduleButton">
+                            ↻ تحديث الجدول
+                        </button>
+                    </div>
+
+                    <div class="day-tabs" role="tablist" aria-label="أيام الأسبوع">
+
+                        <button type="button" class="day-tab active" data-day="sun" role="tab" aria-selected="true">الأحد</button>
+                        <button type="button" class="day-tab" data-day="mon" role="tab" aria-selected="false">الاثنين</button>
+                        <button type="button" class="day-tab" data-day="tue" role="tab" aria-selected="false">الثلاثاء</button>
+                        <button type="button" class="day-tab" data-day="wed" role="tab" aria-selected="false">الأربعاء</button>
+                        <button type="button" class="day-tab" data-day="thu" role="tab" aria-selected="false">الخميس</button>
+
+                    </div>
+
+                    <div class="schedule-heading">
+                        <div>
+                            <h3 id="selectedDayTitle">حصص الأحد</h3>
+                            <p id="selectedDayDescription">الحصص المسندة إليك لهذا اليوم.</p>
+                        </div>
+
+                        <span class="lesson-counter" id="lessonCounter">0 حصة</span>
+                    </div>
+
+                    <div class="lesson-list" id="lessonList">
+                        <div class="loading-state">
+                            <span class="loading-spinner"></span>
+                            <p>جارٍ تحميل الجدول الدراسي...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- القسم الجديد: الجدول الأسبوعي -->
+            <section class="teacher-section" id="section-weekly">
+
+                <div class="section-intro">
+                    <span class="section-eyebrow">جدول الحصص</span>
+                    <h2>الجدول الأسبوعي</h2>
+                    <p>عرض جميع الحصص المنشورة والمسندة إليك خلال أيام الأسبوع.</p>
+                </div>
+
+                <div class="content-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h2>حصصي خلال الأسبوع</h2>
+                            <p>جميع الحصص من الأحد إلى الخميس.</p>
+                        </div>
+
+                        <button type="button" class="outline-button" id="refreshWeeklyScheduleButton">
+                            ↻ تحديث الجدول
+                        </button>
+                    </div>
+
+                    <div class="weekly-days-grid" id="weeklyScheduleList">
+                        <div class="loading-state">
+                            <span class="loading-spinner"></span>
+                            <p>جارٍ تحميل الجدول الأسبوعي...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- القسم الثاني: إرسال الواجبات -->
+            <section class="teacher-section" id="section-homework">
+
+                <div class="section-intro">
+                    <span class="section-eyebrow">إدارة الواجبات</span>
+                    <h2>إرسال واجب جديد</h2>
+                    <p>اختر الشعبة والمادة من تكليفاتك، ثم أضف تفاصيل الواجب ومرفقاته.</p>
+                </div>
+
+                <div class="content-panel">
+
+                    <form id="homeworkForm" class="homework-form">
+
+                        <div class="form-grid">
+
+                            <div class="form-field">
+                                <label for="homeworkClass">الشعبة *</label>
+                                <select id="homeworkClass" required>
+                                    <option value="">جارٍ تحميل الشعب...</option>
+                                </select>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="homeworkSubject">المادة *</label>
+                                <select id="homeworkSubject" required disabled>
+                                    <option value="">اختر الشعبة أولاً</option>
+                                </select>
+                            </div>
+
+                            <div class="form-field full-width">
+                                <label for="homeworkTargetDate">تاريخ الواجب (اختياري)</label>
+                                <input type="date" id="homeworkTargetDate">
+                                <small>هذا التاريخ للتوضيح فقط، ولا يمثل موعد تسليم إلكتروني.</small>
+                            </div>
+
+                            <div class="form-field full-width">
+                                <label for="homeworkContent">نص الواجب *</label>
+                                <textarea id="homeworkContent" rows="6" maxlength="5000" placeholder="اكتب تفاصيل الواجب والتعليمات المطلوبة من الطلاب..." required></textarea>
+                            </div>
+
+                            <div class="form-field full-width">
+                                <label for="homeworkFiles">إرفاق صور للواجب</label>
+
+                                <div class="upload-area">
+                                    <input type="file" id="homeworkFiles" accept="image/jpeg,image/png,image/webp" multiple>
+
+                                    <div class="upload-content">
+                                        <span class="upload-icon">▧</span>
+                                        <strong>اختر صور الواجب</strong>
+                                        <small>الصيغ المدعومة: JPG وPNG وWEBP، بحد أقصى 10 ميغابايت للصورة.</small>
+                                    </div>
+                                </div>
+
+                                <div class="selected-files" id="selectedFiles"></div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-message" id="homeworkFormMessage" role="status" aria-live="polite"></div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="primary-button" id="publishHomeworkButton">نشر الواجب</button>
+                            <button type="reset" class="secondary-button" id="resetHomeworkButton">مسح الحقول</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div class="content-panel homework-history-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <span class="section-eyebrow">المحتوى المنشور</span>
+                            <h2>واجباتي</h2>
+                            <p>الواجبات التي أرسلتها إلى الشعب المكلّف بها.</p>
+                        </div>
+
+                        <button type="button" class="outline-button" id="refreshHomeworkButton">↻ تحديث</button>
+                    </div>
+
+                    <div id="teacherHomeworkList" class="teacher-homework-list">
+                        <div class="empty-state">
+                            <div class="empty-icon">✎</div>
+                            <h3>لم يتم تحميل الواجبات بعد</h3>
+                            <p>ستظهر هنا الواجبات التي نشرتها.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- القسم الثالث: الشعب والتكليفات -->
+            <section class="teacher-section" id="section-assignments">
+
+                <div class="section-intro">
+                    <span class="section-eyebrow">التكليفات المدرسية</span>
+                    <h2>الشعب المكلّف بها</h2>
+                    <p>عرض الشعب والمواد التي أسندتها إليك إدارة المدرسة.</p>
+                </div>
+
+                <div class="content-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h2>قائمة التكليفات</h2>
+                            <p>هذه البيانات مرتبطة بتكليفات حسابك في المدرسة.</p>
+                        </div>
+
+                        <button type="button" class="outline-button" id="refreshAssignmentsButton">↻ تحديث</button>
+                    </div>
+
+                    <div class="assignment-summary" id="assignmentSummary">
+                        <div class="summary-item">
+                            <span>عدد الشعب</span>
+                            <strong id="assignedClassCount">—</strong>
+                        </div>
+
+                        <div class="summary-item">
+                            <span>عدد المواد</span>
+                            <strong id="assignedSubjectCount">—</strong>
+                        </div>
+                    </div>
+
+                    <div id="teacherAssignmentsList" class="teacher-assignments-list">
+                        <div class="loading-state">
+                            <span class="loading-spinner"></span>
+                            <p>جارٍ تحميل التكليفات...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- القسم الرابع: الإعلانات والتنبيهات -->
+            <section class="teacher-section" id="section-announcements">
+
+                <div class="section-intro">
+                    <span class="section-eyebrow">التواصل المدرسي</span>
+                    <h2>الإعلانات والتنبيهات</h2>
+                    <p>هنا ستظهر الإعلانات والتعاميم التي ترسلها إدارة مدرستك.</p>
+                </div>
+
+                <div class="content-panel">
+
+                    <div class="panel-heading">
+                        <div>
+                            <h2>إعلانات المدرسة</h2>
+                            <p>الإعلانات الخاصة بمدرستك فقط.</p>
+                        </div>
+
+                        <button type="button" class="outline-button" id="refreshAnnouncementsButton">↻ تحديث</button>
+                    </div>
+
+                    <div id="teacherAnnouncementsList" class="announcements-list">
+                        <div class="empty-state">
+                            <div class="empty-icon">▤</div>
+                            <h3>الإعلانات المدرسية</h3>
+                            <p>سيتم عرض إعلانات الإدارة هنا عند ربط مصدر الإعلانات المعتمد في قاعدة البيانات.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- القسم الخامس: حساب المعلم -->
+            <section class="teacher-section" id="section-profile">
+
+                <div class="section-intro">
+                    <span class="section-eyebrow">المعلومات الشخصية</span>
+                    <h2>حسابي</h2>
+                    <p>بيانات حساب المعلم المسجلة في منصة إيلابرات.</p>
+                </div>
+
+                <div class="content-panel profile-panel">
+
+                    <div class="profile-header">
+                        <div class="profile-large-avatar" id="profileAvatar">م</div>
+
+                        <div>
+                            <h2 id="profileFullName">جارٍ تحميل البيانات...</h2>
+                            <span class="profile-role">معلم</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-details">
+
+                        <div class="profile-detail">
+                            <span>الاسم الكامل</span>
+                            <strong id="profileNameValue">—</strong>
+                        </div>
+
+                        <div class="profile-detail">
+                            <span>اسم الدخول</span>
+                            <strong id="profileLoginName">—</strong>
+                        </div>
+
+                        <div class="profile-detail">
+                            <span>رقم الهاتف</span>
+                            <strong id="profilePhone">—</strong>
+                        </div>
+
+                        <div class="profile-detail">
+                            <span>المدرسة</span>
+                            <strong id="profileSchool">—</strong>
+                        </div>
+
+                    </div>
+
+                    <p class="profile-note">
+                        لتعديل بيانات حسابك، يرجى التواصل مع إدارة المدرسة.
+                    </p>
+
+                </div>
+
+            </section>
+
+            <footer class="teacher-page-footer">
+                <span>ILABRAT</span>
+                <small>منصة إيلابرات التعليمية</small>
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<!-- نافذة إضافة / تعديل الواجب -->
+<dialog class="teacher-modal" id="assignmentModal">
+
+    <div class="modal-heading">
+        <div>
+            <span class="section-eyebrow">إدارة الواجب</span>
+            <h2 id="modalTitle">إضافة واجب</h2>
+            <p id="modalLessonInfo"></p>
+        </div>
+
+        <button type="button" class="modal-close" id="closeModalButton" aria-label="إغلاق">×</button>
+    </div>
+
+    <form id="assignmentForm">
+
+        <input type="hidden" id="postId">
+
+        <div class="form-field">
+            <label for="assignmentClass">الشعبة *</label>
+            <select id="assignmentClass" required>
+                <option value="">اختر الشعبة</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label for="assignmentSubject">المادة *</label>
+            <select id="assignmentSubject" required disabled>
+                <option value="">اختر المادة</option>
+            </select>
+        </div>
+
+        <div class="form-field">
+            <label for="assignmentTargetDate">تاريخ الواجب (اختياري)</label>
+            <input type="date" id="assignmentTargetDate">
+        </div>
+
+        <div class="form-field">
+            <label for="assignmentDescription">تفاصيل الواجب *</label>
+            <textarea id="assignmentDescription" rows="5" maxlength="5000" required></textarea>
+        </div>
+
+        <div class="form-field">
+            <label for="attachmentFiles">المرفقات الجديدة</label>
+            <input type="file" id="attachmentFiles" accept="image/jpeg,image/png,image/webp" multiple>
+        </div>
+
+        <div id="existingAttachments" class="existing-attachments"></div>
+
+        <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
+
+        <div class="form-actions">
+            <button type="submit" class="primary-button" id="saveAssignmentButton">حفظ الواجب</button>
+            <button type="button" class="secondary-button" id="cancelModalButton">إلغاء</button>
+        </div>
+
+    </form>
+
+</dialog>
+
+<!-- نافذة معاينة الصور -->
+<dialog class="image-modal" id="imageModal">
+
+    <div class="image-modal-heading">
+        <strong id="previewImageName">معاينة المرفق</strong>
+
+        <button type="button" class="modal-close" id="closeImageButton" aria-label="إغلاق">×</button>
+    </div>
+
+    <div class="image-preview-container">
+        <img id="previewImage" src="" alt="معاينة المرفق">
+    </div>
+
+</dialog>
+
+</body>
+</html>

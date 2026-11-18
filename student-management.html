@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-auth-scope="school_admin">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <title>إدارة الطلاب | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/admin-timetable.css">
+    <link rel="stylesheet" href="css/student-management.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/student-management.js" defer></script>
+</head>
+
+<body>
+
+<div class="admin-layout">
+
+    <aside class="sidebar">
+
+        <a href="index.html" class="brand" aria-label="العودة إلى إيلابرات">
+            <img src="assets/ilabrat-logo.png"
+                 alt="شعار إيلابرات"
+                 class="brand-icon"
+                 style="object-fit:contain;">
+
+            <span class="brand-text">
+                <strong>إيلابرات</strong>
+                <small>ILABRAT · ADMIN</small>
+            </span>
+        </a>
+
+        <!-- بيانات المدرسة المرتبطة بحساب المدير -->
+        <div class="school-context-card" aria-label="المدرسة المرتبطة بالحساب">
+            <div class="school-context-icon" aria-hidden="true">🏫</div>
+
+            <div class="school-context-text">
+                <small>إدارة المدرسة</small>
+                <strong id="schoolDisplayName">جارٍ تحميل اسم المدرسة...</strong>
+            </div>
+        </div>
+
+        <div class="sidebar-heading">القائمة الرئيسية</div>
+
+        <nav class="sidebar-nav" aria-label="القائمة الرئيسية">
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>الرئيسية</span>
+            </a>
+
+            <a href="teacher-registration.html" class="nav-item">
+                <span class="nav-icon">＋</span>
+                <span>إضافة معلم</span>
+            </a>
+
+            <a href="student-accounts.html" class="nav-item">
+                <span class="nav-icon">＋</span>
+                <span>إضافة طالب</span>
+            </a>
+
+            <a href="teacher-accounts.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>حسابات المعلمين</span>
+            </a>
+
+            <a href="student-management.html"
+               class="nav-item active"
+               aria-current="page">
+                <span class="nav-icon">♙</span>
+                <span>حسابات الطلاب</span>
+            </a>
+
+            
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>إدارة الجدول</span>
+            </a>
+
+            <a href="admin-view-timetables.html" class="nav-item">
+                <span class="nav-icon">▤</span>
+                <span>عرض الجداول</span>
+            </a>
+
+            <a href="timetable.html" class="nav-item">
+                <span class="nav-icon">✓</span>
+                <span>عرض الجدول الدراسي</span>
+            </a>
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>تسجيل الدخول</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">i</div>
+
+            <div>
+                <strong>إدارة أكثر سهولة</strong>
+                <p>نظّم شؤون مدرستك من مكان واحد.</p>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <a href="admin-timetable.html">الرئيسية</a>
+                <span>/</span>
+                <strong>إدارة الطلاب</strong>
+            </div>
+
+            <div class="admin-profile">
+                <span class="online-dot"></span>
+                <span id="adminDisplayName">جارٍ تحميل اسم المدير...</span>
+                <div class="profile-avatar" id="adminProfileAvatar">إ</div>
+            </div>
+
+        </header>
+
+        <div class="page-container student-management-container">
+
+            <section class="page-header">
+
+                <div>
+                    <span class="section-label">
+                        <span class="label-dot"></span>
+                        إدارة شؤون الطلبة
+                    </span>
+
+                    <h1>إدارة الطلاب</h1>
+
+                    <p>
+                        اعرض طلاب مدرستك حسب الصف والشعبة،
+                        وعدّل بيانات الطالب أو احذف الحساب عند الحاجة.
+                    </p>
+                </div>
+
+                <a href="student-accounts.html" class="btn btn-primary">
+                    + إضافة طالب
+                </a>
+
+            </section>
+
+            <!-- بيانات المدرسة -->
+            <section class="notice-card student-school-card">
+
+                <div class="notice-icon">⌂</div>
+
+                <div>
+                    <strong>المدرسة الحالية</strong>
+
+                    <p id="studentSchoolName" aria-live="polite">
+                        جارٍ تحميل بيانات المدرسة...
+                    </p>
+
+                    <small id="studentSchoolDetails">
+                        ستظهر هنا بيانات المدرسة المرتبطة بحسابك.
+                    </small>
+                </div>
+
+            </section>
+
+            <!-- حالة الاتصال -->
+            <section class="notice-card student-management-connection">
+
+                <div class="notice-icon">i</div>
+
+                <div>
+                    <strong>حالة الاتصال</strong>
+
+                    <p id="connectionNotice" role="status" aria-live="polite">
+                        جارٍ التحقق من تسجيل الدخول والصلاحيات...
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- إحصائيات الطلاب -->
+            <section class="student-statistics" aria-label="إحصائيات الطلاب">
+
+                <article class="student-stat-card">
+                    <div class="student-stat-icon">♙</div>
+
+                    <div>
+                        <span>إجمالي طلاب المدرسة</span>
+                        <strong id="totalSchoolStudents" aria-live="polite">—</strong>
+                        <small>جميع الصفوف والشُّعب</small>
+                    </div>
+                </article>
+
+                <article class="student-stat-card">
+                    <div class="student-stat-icon">▦</div>
+
+                    <div>
+                        <span>طلاب الصف المختار</span>
+                        <strong id="totalClassStudents" aria-live="polite">—</strong>
+                        <small id="selectedGradeLabel">لم يُحدّد الصف</small>
+                    </div>
+                </article>
+
+                <article class="student-stat-card">
+                    <div class="student-stat-icon">☷</div>
+
+                    <div>
+                        <span>طلاب الشعبة المختارة</span>
+                        <strong id="totalSectionStudents" aria-live="polite">—</strong>
+                        <small id="selectedSectionLabel">لم تُحدّد الشعبة</small>
+                    </div>
+                </article>
+
+                <article class="student-stat-card">
+                    <div class="student-stat-icon">⌕</div>
+
+                    <div>
+                        <span>الطلاب الظاهرون</span>
+                        <strong id="visibleStudentCount" aria-live="polite">—</strong>
+                        <small>حسب البحث والتصفية</small>
+                    </div>
+                </article>
+
+            </section>
+
+            <!-- اختيار الصف والشعبة والبحث -->
+            <section class="panel student-filters-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>تحديد الصف والشعبة</h2>
+                        <p>اختر الصف والشعبة لعرض الطلاب المرتبطين بهما.</p>
+                    </div>
+                </div>
+
+                <div class="student-filters-grid">
+
+                    <label class="form-field">
+                        <span>الصف الدراسي</span>
+
+                        <select id="studentGradeFilter" disabled>
+                            <option value="">جارٍ تحميل الصفوف...</option>
+                        </select>
+                    </label>
+
+                    <label class="form-field">
+                        <span>الشعبة</span>
+
+                        <select id="studentSectionFilter" disabled>
+                            <option value="">اختر الصف أولًا</option>
+                        </select>
+                    </label>
+
+                    <label class="form-field student-search-field">
+                        <span>البحث عن طالب</span>
+
+                        <input
+                            type="search"
+                            id="studentSearch"
+                            placeholder="اكتب اسم الطالب أو اسم المستخدم..."
+                            autocomplete="off"
+                            maxlength="120"
+                            disabled>
+                    </label>
+
+                    <div class="student-filter-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="refreshStudentsButton">
+                            ↻ تحديث البيانات
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            id="clearStudentFiltersButton">
+                            مسح التصفية
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <p id="studentListMessage"
+                   class="student-list-message"
+                   role="status"
+                   aria-live="polite">
+                    جارٍ تحميل البيانات...
+                </p>
+
+            </section>
+
+            <!-- قائمة الطلاب -->
+            <section class="panel student-list-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h2>قائمة الطلاب</h2>
+                        <p>يمكنك تعديل بيانات الطالب أو حذف حسابه من الإجراءات.</p>
+                    </div>
+
+                    <span id="studentListBadge" class="student-list-badge">
+                        0 طالب
+                    </span>
+
+                </div>
+
+                <div class="student-table-wrap">
+
+                    <table class="student-table">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">اسم الطالب</th>
+                                <th scope="col">اسم المستخدم</th>
+                                <th scope="col">رمز الدخول</th>
+                                <th scope="col">الصف والشعبة</th>
+                                <th scope="col">الإجراءات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="studentsTableBody">
+                            <tr>
+                                <td colspan="6" class="student-table-empty">
+                                    جارٍ تحميل قائمة الطلاب...
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div id="studentListEmpty" class="student-empty-state" hidden>
+
+                    <div class="student-empty-icon">♙</div>
+
+                    <h3>لا يوجد طلاب لعرضهم</h3>
+
+                    <p>اختر صفًا وشعبة أخرى، أو أضف طالبًا جديدًا.</p>
+
+                    <a href="student-accounts.html" class="btn btn-primary">
+                        إضافة طالب جديد
+                    </a>
+
+                </div>
+
+            </section>
+
+            <footer class="page-footer">
+                © 2026 إيلابرات ILABRAT
+                <span>•</span>
+                إدارة الطلاب
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================
+     نافذة تفاصيل الطالب
+========================================= -->
+<div
+    class="student-modal-backdrop"
+    id="studentDetailsModal"
+    hidden
+    role="presentation">
+
+    <section
+        class="student-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="studentDetailsTitle">
+
+        <header class="student-modal-header">
+
+            <div>
+                <span class="section-label">بيانات الحساب</span>
+                <h2 id="studentDetailsTitle">تفاصيل الطالب</h2>
+            </div>
+
+            <button
+                type="button"
+                class="student-modal-close"
+                data-close-modal
+                aria-label="إغلاق">
+                ×
+            </button>
+
+        </header>
+
+        <div class="student-modal-body">
+
+            <div class="student-detail-summary">
+
+                <div class="student-detail-avatar" id="studentDetailAvatar">
+                    ط
+                </div>
+
+                <div>
+                    <h3 id="detailStudentName">—</h3>
+                    <p id="detailStudentClass">—</p>
+                </div>
+
+            </div>
+
+            <div class="student-detail-grid">
+
+                <div class="student-detail-item">
+                    <span>اسم الطالب الكامل</span>
+                    <strong id="detailFullName">—</strong>
+                </div>
+
+                <div class="student-detail-item">
+                    <span>اسم المستخدم</span>
+                    <strong id="detailUsername" dir="auto">—</strong>
+                </div>
+
+                <div class="student-detail-item">
+                    <span>المرحلة الدراسية</span>
+                    <strong id="detailStage">—</strong>
+                </div>
+
+                <div class="student-detail-item">
+                    <span>الصف</span>
+                    <strong id="detailGrade">—</strong>
+                </div>
+
+                <div class="student-detail-item">
+                    <span>الشعبة</span>
+                    <strong id="detailSection">—</strong>
+                </div>
+
+                <div class="student-detail-item">
+                    <span>معرّف سجل الطالب</span>
+                    <strong id="detailStudentId" dir="ltr">—</strong>
+                </div>
+
+            </div>
+
+            <p class="student-detail-note">
+                لأسباب أمنية، لا يمكن عرض الرمز السري الحالي.
+                إذا أردت إصدار بيانات دخول جديدة، احذف الحساب بعد التأكد ثم أنشئ حسابًا جديدًا.
+            </p>
+
+        </div>
+
+        <footer class="student-modal-footer">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                data-close-modal>
+                إغلاق
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-primary"
+                id="editStudentFromDetailsButton">
+                تعديل بيانات الطالب
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-danger"
+                id="deleteStudentFromDetailsButton">
+                حذف الطالب
+            </button>
+
+        </footer>
+
+    </section>
+
+</div>
+
+
+<!-- =========================================
+     نافذة تعديل بيانات الطالب
+========================================= -->
+<div
+    class="student-modal-backdrop"
+    id="studentEditModal"
+    hidden
+    aria-hidden="true"
+    role="presentation">
+
+    <section
+        class="student-modal student-edit-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="studentEditTitle">
+
+        <header class="student-modal-header">
+
+            <div>
+                <span class="section-label">إدارة بيانات الطالب</span>
+
+                <h2 id="studentEditTitle">تعديل بيانات الطالب</h2>
+
+                <p class="student-edit-subtitle">
+                    راجع بيانات الطالب الحالية، ثم عدّل الاسم أو انقله إلى صف وشعبة أخرى.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="student-modal-close"
+                data-close-edit-modal
+                aria-label="إغلاق نافذة التعديل">
+                ×
+            </button>
+
+        </header>
+
+        <form id="studentEditForm">
+
+            <div class="student-modal-body">
+
+                <input type="hidden" id="editStudentId">
+
+                <!-- ملخص بيانات الطالب الحالية -->
+                <div class="student-detail-summary student-edit-summary">
+
+                    <div class="student-detail-avatar" id="editStudentAvatar">
+                        ط
+                    </div>
+
+                    <div>
+                        <h3 id="editStudentCurrentName">—</h3>
+                        <p id="editStudentCurrentClass">—</p>
+                    </div>
+
+                </div>
+
+                <!-- بيانات الطالب الكاملة -->
+                <div class="student-detail-grid student-edit-details">
+
+                    <div class="student-detail-item">
+                        <span>معرّف سجل الطالب</span>
+                        <strong id="editStudentRecordId" dir="ltr">—</strong>
+                    </div>
+
+                    <div class="student-detail-item">
+                        <span>اسم المستخدم</span>
+                        <strong id="editStudentUsernameDisplay" dir="auto">—</strong>
+                    </div>
+
+                    <div class="student-detail-item">
+                        <span>المرحلة الدراسية الحالية</span>
+                        <strong id="editStudentCurrentStage">—</strong>
+                    </div>
+
+                    <div class="student-detail-item">
+                        <span>الصف الحالي</span>
+                        <strong id="editStudentCurrentGrade">—</strong>
+                    </div>
+
+                    <div class="student-detail-item">
+                        <span>الشعبة الحالية</span>
+                        <strong id="editStudentCurrentSection">—</strong>
+                    </div>
+
+                </div>
+
+                <div class="student-edit-divider"></div>
+
+                <h3 class="student-edit-section-title">
+                    البيانات القابلة للتعديل
+                </h3>
+
+                <label class="form-field student-edit-field">
+
+                    <span>اسم الطالب الكامل</span>
+
+                    <input
+                        type="text"
+                        id="editStudentFullName"
+                        maxlength="120"
+                        minlength="2"
+                        autocomplete="off"
+                        required
+                        placeholder="أدخل اسم الطالب الكامل">
+
+                </label>
+
+                <label class="form-field student-edit-field">
+
+                    <span>اسم المستخدم</span>
+
+                    <input
+                        type="text"
+                        id="editStudentUsername"
+                        readonly
+                        aria-describedby="editUsernameHelp">
+
+                    <small id="editUsernameHelp">
+                        اسم المستخدم مرتبط بحساب الدخول، ويظل ثابتًا عند تعديل بيانات الطالب.
+                    </small>
+
+                </label>
+
+                <label class="form-field student-edit-field">
+
+                    <span>نقل الطالب إلى صف وشعبة</span>
+
+                    <select id="editStudentClass" required>
+                        <option value="">جارٍ تحميل الصفوف والشعب...</option>
+                    </select>
+
+                    <small>
+                        اختر الصف والشعبة الجديدين. سيبقى حساب الطالب واسم المستخدم كما هما.
+                    </small>
+
+                </label>
+
+                <p
+                    id="editStudentMessage"
+                    class="student-list-message"
+                    role="status"
+                    aria-live="polite"
+                    hidden>
+                </p>
+
+            </div>
+
+            <footer class="student-modal-footer student-edit-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="cancelStudentEditButton">
+                    إلغاء
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary"
+                    id="saveStudentChangesButton">
+                    حفظ التعديلات
+                </button>
+
+            </footer>
+
+        </form>
+
+    </section>
+
+</div>
+
+
+<!-- =========================================
+     نافذة تأكيد الحذف
+========================================= -->
+<div
+    class="student-modal-backdrop student-delete-backdrop"
+    id="deleteStudentModal"
+    hidden
+    role="presentation">
+
+    <section
+        class="student-modal student-delete-modal"
+        role="alertdialog"
+        aria-modal="true"
+        aria-labelledby="deleteStudentTitle"
+        aria-describedby="deleteStudentWarning">
+
+        <header class="student-modal-header student-delete-header">
+
+            <div class="student-delete-heading">
+
+                <span class="student-delete-warning-icon" aria-hidden="true">
+                    !
+                </span>
+
+                <div>
+                    <span class="section-label">تنبيه أمني</span>
+                    <h2 id="deleteStudentTitle">تأكيد حذف الطالب</h2>
+                </div>
+
+            </div>
+
+            <button
+                type="button"
+                class="student-modal-close"
+                data-close-delete-modal
+                aria-label="إلغاء وإغلاق النافذة">
+                ×
+            </button>
+
+        </header>
+
+        <div class="student-modal-body">
+
+            <p id="deleteStudentWarning" class="student-delete-warning-text">
+                هل أنت متأكد من رغبتك في حذف هذا الطالب؟
+            </p>
+
+            <div class="student-delete-target">
+                <span>الطالب المراد حذفه</span>
+                <strong id="deleteStudentName">—</strong>
+                <small id="deleteStudentClass">—</small>
+            </div>
+
+            <div class="student-delete-consequences">
+
+                <strong>سيترتب على تأكيد الحذف:</strong>
+
+                <ul>
+                    <li>حذف سجل الطالب من قاعدة البيانات.</li>
+                    <li>حذف ملف حسابه المرتبط به.</li>
+                    <li>حذف حساب تسجيل الدخول القديم من Supabase Auth.</li>
+                    <li>تعطيل إمكانية الدخول باستخدام بيانات الحساب القديم.</li>
+                </ul>
+
+            </div>
+
+            <p class="student-delete-final-warning">
+                لا يمكن التراجع عن الحذف. إذا أردت إعادة تسجيل الطالب،
+                فستحتاج إلى إنشاء حساب جديد له.
+            </p>
+
+            <p id="deleteStudentMessage"
+               class="student-list-message"
+               role="status"
+               aria-live="polite"
+               hidden>
+            </p>
+
+        </div>
+
+        <footer class="student-modal-footer student-delete-footer">
+
+            <button
+                type="button"
+                class="btn btn-secondary"
+                id="cancelDeleteStudentButton">
+                إلغاء
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-danger"
+                id="confirmDeleteStudentButton">
+                تأكيد الحذف نهائيًا
+            </button>
+
+        </footer>
+
+    </section>
+
+</div>
+
+</body>
+</html>

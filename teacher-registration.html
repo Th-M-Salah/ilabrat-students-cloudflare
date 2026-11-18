@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-auth-scope="school_admin">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>إنشاء حسابات المعلمين | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+    <link rel="stylesheet" href="css/teacher-registration.css">
+    <button type="button" id="logoutButton" class="logout-button">
+    <span>↪</span>
+    تسجيل الخروج
+</button>
+</head>
+
+<body>
+    <div class="app-layout">
+
+        <aside class="sidebar">
+            <a href="index.html" class="brand" aria-label="العودة إلى إيلابرات">
+                <img src="assets/ilabrat-logo.png" alt="شعار إيلابرات" class="brand-icon" style="object-fit:contain;">
+                <span class="brand-text">
+                    <strong>إيلابرات</strong>
+                    <small>ILABRAT · ADMIN</small>
+                </span>
+            </a>
+
+            <div class="school-context-card" aria-label="المدرسة المرتبطة بالحساب">
+                <div class="school-context-icon" aria-hidden="true">🏫</div>
+                <div class="school-context-text">
+                    <small>إدارة المدرسة</small>
+                    <strong id="schoolDisplayName">جارٍ تحميل اسم المدرسة...</strong>
+                </div>
+            </div>
+
+            <div class="sidebar-heading">القائمة الرئيسية</div>
+
+            <nav class="sidebar-nav" aria-label="القائمة الرئيسية">
+                <a href="admin-timetable.html" class="nav-item">
+                    <span class="nav-icon">⌂</span>
+                    <span>الرئيسية</span>
+                </a>
+
+                <a href="teacher-registration.html" class="nav-item active" aria-current="page">
+                    <span class="nav-icon">＋</span>
+                    <span>إضافة معلم</span>
+                </a>
+
+                <a href="student-accounts.html" class="nav-item">
+                    <span class="nav-icon">＋</span>
+                    <span>إضافة طالب</span>
+                </a>
+
+                <a href="teacher-accounts.html" class="nav-item">
+                    <span class="nav-icon">♙</span>
+                    <span>حسابات المعلمين</span>
+                </a>
+<a href="student-management.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>حسابات الطلاب</span>
+            </a>
+                
+
+                <a href="admin-timetable.html" class="nav-item">
+                    <span class="nav-icon">▦</span>
+                    <span>إدارة الجدول</span>
+                </a>
+
+                <a href="admin-view-timetables.html" class="nav-item">
+                    <span class="nav-icon">▤</span>
+                    <span>عرض الجداول</span>
+                </a>
+
+              
+
+                <a href="index.html" class="nav-item">
+                    <span class="nav-icon">↪</span>
+                    <span>تسجيل الدخول</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="footer-icon">i</div>
+                <div>
+                    <strong>إدارة أكثر سهولة</strong>
+                    <p>نظّم جدول مدرستك من مكان واحد.</p>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+
+            <header class="topbar">
+                <div>
+                    <p class="breadcrumb">إدارة المدرسة / المعلمون</p>
+                    <h1>إنشاء حسابات المعلمين</h1>
+                    <p class="page-subtitle">
+                        أنشئ حسابًا لكل معلم وامنحه كود الدخول الخاص به.
+                    </p>
+                </div>
+
+                <a href="teacher-accounts.html" class="secondary-button">
+                    إدارة المعلمين ←
+                </a>
+            </header>
+
+            <section class="notice">
+                <span class="notice-icon">ⓘ</span>
+                <div>
+                    <strong>آلية إنشاء الحساب</strong>
+                    <p>
+                        أدخل بيانات المعلم لإنشاء حساب مرتبط بمدرستك.
+                        سيُنشأ كود الدخول من خلال الخادم عند نجاح العملية.
+                    </p>
+                </div>
+            </section>
+
+            <section class="stats-grid">
+                <article class="stat-card">
+                    <span class="stat-icon">♙</span>
+                    <div>
+                        <p>إجمالي الحسابات</p>
+                        <h2 id="totalTeachers">0</h2>
+                    </div>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon">✓</span>
+                    <div>
+                        <p>الحسابات المنشأة</p>
+                        <h2 id="createdTeachers">0</h2>
+                    </div>
+                </article>
+
+                <article class="stat-card">
+                    <span class="stat-icon">⌁</span>
+                    <div>
+                        <p>أكواد الدخول</p>
+                        <h2 id="totalCodes">0</h2>
+                    </div>
+                </article>
+            </section>
+
+            <section class="content-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>بيانات المعلم الجديد</h2>
+                        <p>املأ البيانات التالية لإنشاء الحساب.</p>
+                    </div>
+                </div>
+
+                <form id="teacherForm">
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="teacherName">اسم المعلم الكامل *</label>
+                            <input
+                                type="text"
+                                id="teacherName"
+                                name="teacherName"
+                                placeholder="أدخل الاسم الكامل للمعلم"
+                                maxlength="100"
+                                autocomplete="name"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacherEmail">البريد الإلكتروني (اختياري)</label>
+                            <input
+                                type="email"
+                                id="teacherEmail"
+                                name="teacherEmail"
+                                placeholder="teacher@example.com"
+                                maxlength="150"
+                                autocomplete="email"
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacherPhone">رقم الهاتف *</label>
+                            <input
+                                type="tel"
+                                id="teacherPhone"
+                                name="teacherPhone"
+                                placeholder="رقم هاتف المعلم"
+                                maxlength="30"
+                                autocomplete="tel"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="teacherSubject">المادة الدراسية *</label>
+
+                            <select
+                                id="teacherSubject"
+                                name="teacherSubject"
+                                required
+                            >
+                                <option value="">اختر المادة</option>
+                                <option value="اللغة العربية">اللغة العربية</option>
+                                <option value="اللغة الإنجليزية">اللغة الإنجليزية</option>
+                                <option value="الرياضيات">الرياضيات</option>
+                                <option value="العلوم">العلوم</option>
+                                <option value="الفيزياء">الفيزياء</option>
+                                <option value="الكيمياء">الكيمياء</option>
+                                <option value="الأحياء">الأحياء</option>
+                                <option value="الاجتماعيات">الاجتماعيات</option>
+                                <option value="التربية الإسلامية">التربية الإسلامية</option>
+                                <option value="الحاسوب">الحاسوب</option>
+                                <option value="التربية الفنية">التربية الفنية</option>
+                                <option value="التربية الرياضية">التربية الرياضية</option>
+                                <option value="أخرى">أخرى</option>
+                            </select>
+
+                            <input
+                                type="text"
+                                id="customSubject"
+                                name="customSubject"
+                                placeholder="اكتب اسم المادة الأخرى"
+                                maxlength="100"
+                                style="display: none; margin-top: 10px;"
+                                aria-label="اسم المادة الأخرى"
+                                disabled
+                            >
+                        </div>
+
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">
+                            ＋ إنشاء حساب وتوليد الكود
+                        </button>
+
+                        <button
+                            type="reset"
+                            class="cancel-button"
+                            id="resetButton"
+                        >
+                            مسح الحقول
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <section id="generatedCodePanel" class="generated-panel" hidden>
+                <div class="success-icon">✓</div>
+
+                <div class="generated-content">
+                    <h2>تم إنشاء حساب المعلم</h2>
+                    <p id="generatedTeacherName"></p>
+
+                    <p class="code-label">كود دخول المعلم</p>
+
+                    <div class="code-row">
+                        <code id="generatedCode">—</code>
+
+                        <button
+                            type="button"
+                            id="copyCodeButton"
+                            class="secondary-button"
+                        >
+                            نسخ الكود
+                        </button>
+                    </div>
+
+                    <p class="code-warning">
+                        احتفظ بالكود وسلّمه للمعلم بطريقة آمنة.
+                        لن يُعرض الكود مجددًا إذا لم يُحفظ عند إنشائه.
+                    </p>
+                </div>
+            </section>
+
+            <section class="content-card teachers-section">
+                <div class="section-heading">
+                    <div>
+                        <h2>حسابات المعلمين</h2>
+                        <p>الحسابات المسجلة في المدرسة الحالية.</p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="secondary-button"
+                        id="exportButton"
+                    >
+                        تصدير القائمة
+                    </button>
+                </div>
+
+                <div class="search-box">
+                    <span>⌕</span>
+                    <input
+                        type="search"
+                        id="searchInput"
+                        placeholder="ابحث عن اسم المعلم أو المادة..."
+                        aria-label="البحث عن معلم"
+                    >
+                </div>
+
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>المعلم</th>
+                                <th>المادة</th>
+                                <th>حالة الحساب</th>
+                                <th>تاريخ الإنشاء</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="teachersTableBody"></tbody>
+                    </table>
+                </div>
+
+                <div id="emptyState" class="empty-state" hidden>
+                    <div class="empty-icon">♙</div>
+                    <h3>لا توجد حسابات حتى الآن</h3>
+                    <p>أنشئ أول حساب معلم من النموذج أعلاه.</p>
+                </div>
+            </section>
+
+            <footer class="page-footer">
+                ILABRAT Students — إدارة حسابات المعلمين
+            </footer>
+
+        </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="js/teacher-registration.js"></script>
+
+    
+</body>
+</html>

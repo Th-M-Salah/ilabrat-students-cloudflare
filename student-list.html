@@ -1,0 +1,423 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-auth-scope="school_admin">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+
+    <title>إدارة حسابات الطلاب | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet" href="css/admin-timetable.css">
+    <link rel="stylesheet" href="css/student-accounts.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="js/student-accounts.js" defer></script>
+</head>
+
+<body>
+<div class="admin-layout">
+
+    <aside class="sidebar">
+
+        <a href="index.html" class="brand" aria-label="العودة إلى إيلابرات">
+            <img src="assets/ilabrat-logo.png"
+                 alt="شعار إيلابرات"
+                 class="brand-icon">
+
+            <span class="brand-text">
+                <strong>إيلابرات</strong>
+                <small>ILABRAT · ADMIN</small>
+            </span>
+        </a>
+
+        <div class="sidebar-heading">القائمة الرئيسية</div>
+
+        <nav class="sidebar-nav" aria-label="القائمة الرئيسية">
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">⌂</span>
+                <span>الرئيسية</span>
+            </a>
+
+            <a href="teacher.html" class="nav-item">
+                <span class="nav-icon">♙</span>
+                <span>المعلمون</span>
+            </a>
+
+            <a href="teacher.html#lessons" class="nav-item">
+                <span class="nav-icon">♧</span>
+                <span>إدارة الحصص والواجبات</span>
+            </a>
+
+            <a href="admin-timetable.html" class="nav-item">
+                <span class="nav-icon">▦</span>
+                <span>إدارة الجدول</span>
+            </a>
+
+            <a href="student-accounts.html"
+               class="nav-item active"
+               aria-current="page">
+                <span class="nav-icon">♙</span>
+                <span>إدارة حسابات الطلاب</span>
+            </a>
+
+            <a href="timetable.html" class="nav-item">
+                <span class="nav-icon">✓</span>
+                <span>عرض الجدول الدراسي</span>
+            </a>
+
+            <a href="index.html" class="nav-item">
+                <span class="nav-icon">↪</span>
+                <span>تسجيل الدخول</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="footer-icon">i</div>
+
+            <div>
+                <strong>حسابات طلاب منظّمة</strong>
+                <p>أنشئ حسابات طلاب مدرستك من مكان واحد.</p>
+            </div>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div class="breadcrumb">
+                <a href="index.html">الرئيسية</a>
+                <span>/</span>
+                <strong>إدارة حسابات الطلاب</strong>
+            </div>
+
+            <div class="admin-profile">
+                <span class="online-dot"></span>
+                <span id="adminDisplayName">الإدارة</span>
+                <div class="profile-avatar">إ</div>
+            </div>
+
+        </header>
+
+        <div class="page-container student-accounts-container">
+
+            <section class="page-header">
+
+                <div>
+                    <span class="section-label">
+                        <span class="label-dot"></span>
+                        إدارة حسابات الطلبة
+                    </span>
+
+                    <h1>إدارة حسابات الطلاب</h1>
+
+                    <p>
+                        أنشئ حساب الطالب باستخدام اسمه الرباعي،
+                        وحدّد الصف والشعبة لربط الحساب بالجدول الدراسي الصحيح.
+                    </p>
+                </div>
+
+            </section>
+
+            <section class="notice-card">
+
+                <div class="notice-icon">i</div>
+
+                <div>
+                    <strong>حالة الاتصال والصلاحيات</strong>
+
+                    <p id="connectionNotice" aria-live="polite">
+                        جارٍ التحقق من تسجيل الدخول وصلاحيات إدارة المدرسة...
+                    </p>
+                </div>
+
+            </section>
+
+            <section class="panel student-form-panel">
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h2>إنشاء حساب طالب جديد</h2>
+                        <p>جميع الحقول التالية مطلوبة.</p>
+                    </div>
+
+                    <span class="student-panel-icon">♙</span>
+
+                </div>
+
+                <form id="studentAccountForm">
+
+                    <div class="student-form-grid">
+
+                        <label class="form-field student-name-field">
+
+                            <span>الاسم الرباعي للطالب</span>
+
+                            <input
+                                type="text"
+                                id="studentFullName"
+                                name="full_name"
+                                placeholder="الاسم الأول والثاني والثالث والرابع"
+                                autocomplete="off"
+                                maxlength="200"
+                                required>
+
+                            <small>
+                                أدخل الاسم الرباعي كما هو في سجلات المدرسة.
+                            </small>
+
+                        </label>
+
+                        <label class="form-field">
+
+                            <span>الصف والشعبة</span>
+
+                            <select
+                                id="studentClass"
+                                name="class_id"
+                                required
+                                disabled>
+
+                                <option value="">
+                                    جارٍ تحميل الصفوف والشُعب...
+                                </option>
+
+                            </select>
+
+                        </label>
+
+                    </div>
+
+                    <p
+                        class="student-form-message"
+                        id="studentFormMessage"
+                        role="status"
+                        aria-live="polite"
+                        hidden>
+                    </p>
+
+                    <div class="student-form-actions">
+
+                        <button
+                            type="reset"
+                            class="btn btn-secondary"
+                            id="resetStudentForm">
+                            مسح الحقول
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary"
+                            id="createStudentButton">
+                            إنشاء حساب الطالب
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
+
+            <section
+                class="panel credentials-panel"
+                id="studentCredentialsPanel"
+                hidden>
+
+                <div class="panel-heading">
+
+                    <div>
+                        <h2>بيانات حساب الطالب</h2>
+
+                        <p>
+                            اعرض معلومات الطالب، وأنشئ رمز QR،
+                            ثم انسخ البيانات أو اطبع البطاقة.
+                        </p>
+                    </div>
+
+                    <span class="credentials-status">
+                        تم إنشاء الحساب
+                    </span>
+
+                </div>
+
+                <div class="credentials-grid">
+
+                    <div class="credential-item">
+                        <span>اسم الطالب</span>
+                        <strong id="createdStudentName">—</strong>
+                    </div>
+
+                    <div class="credential-item">
+                        <span>الصف والشعبة</span>
+                        <strong id="createdStudentClass">—</strong>
+                    </div>
+
+                    <div class="credential-item">
+
+                        <span>اسم المستخدم</span>
+
+                        <strong id="createdStudentUsername" dir="ltr">—</strong>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline credential-copy"
+                            data-copy="createdStudentUsername">
+                            نسخ اسم المستخدم
+                        </button>
+
+                    </div>
+
+                    <div class="credential-item">
+
+                        <span>الرمز السري</span>
+
+                        <strong id="createdStudentSecret" dir="ltr">—</strong>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline credential-copy"
+                            data-copy="createdStudentSecret">
+                            نسخ الرمز السري
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="student-tools">
+
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="generateStudentQr">
+                        إنشاء رمز QR
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="showStudentInfo">
+                        عرض معلومات الطالب
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="printStudentInfo">
+                        طباعة بطاقة الطالب
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="copyAllStudentCredentials">
+                        نسخ جميع المعلومات
+                    </button>
+
+                </div>
+
+                <section
+                    class="student-qr-panel"
+                    id="studentQrPanel"
+                    hidden
+                    aria-live="polite">
+
+                    <div class="student-print-card" id="studentPrintCard">
+
+                        <div class="print-card-brand">
+
+                            <img
+                                src="assets/ilabrat-logo.png"
+                                alt="شعار إيلابرات">
+
+                            <div>
+                                <strong>إيلابرات | ILABRAT</strong>
+                                <span>بطاقة معلومات الطالب</span>
+                            </div>
+
+                        </div>
+
+                        <div class="print-card-content">
+
+                            <div class="print-card-details">
+
+                                <p>
+                                    <span>اسم الطالب</span>
+                                    <strong id="qrStudentName">—</strong>
+                                </p>
+
+                                <p>
+                                    <span>الصف والشعبة</span>
+                                    <strong id="qrStudentClass">—</strong>
+                                </p>
+
+                                <p>
+                                    <span>اسم المستخدم</span>
+                                    <strong id="qrStudentUsername" dir="ltr">—</strong>
+                                </p>
+
+                            </div>
+
+                            <div class="qr-code-wrap">
+
+                                <div
+                                    id="studentQrCode"
+                                    aria-label="رمز QR الخاص باسم المستخدم">
+                                </div>
+
+                                <small>
+                                    امسح الرمز لقراءة اسم المستخدم
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                        <p class="print-card-note">
+                            رمز QR يحتوي على اسم المستخدم فقط، ولا يحتوي
+                            على الرمز السري أو كلمة المرور. استخدم صفحة
+                            تسجيل الدخول وأدخل بيانات الدخول المطلوبة بشكل منفصل.
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <p class="credentials-warning">
+                    احتفظ ببيانات الدخول وسلّمها للطالب بأمان.
+                    لن نعرض الرمز السري مرة أخرى بعد مغادرة هذه الصفحة.
+                    لا يتضمن QR الرمز السري حفاظًا على أمان الحساب.
+                </p>
+
+            </section>
+
+            <footer class="page-footer">
+                © 2026 إيلابرات ILABRAT
+                <span>•</span>
+                إدارة حسابات الطلاب
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+</body>
+</html>

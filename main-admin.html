@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#5A1825">
+    <meta name="description" content="لوحة مدير التطبيق لإدارة المؤسسات التعليمية ومديري المدارس في منصة إيلابرات.">
+    <title>مدير التطبيق | إيلابرات</title>
+
+    <link rel="icon" type="image/png" href="assets/ilabrat-logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/main-admin.css">
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- القائمة الجانبية -->
+    <aside class="sidebar">
+
+       <a href="main-admin.html" class="brand">
+    <div class="brand-mark">
+        <img src="assets/ilabrat-logo.png" alt="شعار إيلابرات">
+    </div>
+
+    <div class="brand-text">
+        <strong>إيلابرات</strong>
+        <span>ILABRAT PLATFORM</span>
+    </div>
+</a>
+
+        <div class="sidebar-label">القائمة الرئيسية</div>
+
+        <nav class="sidebar-nav" aria-label="القائمة الرئيسية">
+
+            <a href="#dashboard" class="nav-link active" data-view="dashboard">
+                <span class="nav-icon" aria-hidden="true">⌂</span>
+                <span>الرئيسية</span>
+            </a>
+
+            <a href="#schools" class="nav-link" data-view="schools">
+                <span class="nav-icon" aria-hidden="true">▦</span>
+                <span>إدارة المدارس</span>
+            </a>
+
+            <a href="#managers" class="nav-link" data-view="managers">
+                <span class="nav-icon" aria-hidden="true">♙</span>
+                <span>مديرو المدارس</span>
+            </a>
+
+            <a href="#settings" class="nav-link" data-view="settings">
+                <span class="nav-icon" aria-hidden="true">⚙</span>
+                <span>الإعدادات</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="admin-mini">
+                <div class="avatar" aria-hidden="true">م</div>
+
+                <div>
+                    <strong id="adminName">مدير التطبيق</strong>
+                    <span>الصلاحيات الرئيسية</span>
+                </div>
+            </div>
+
+            <button class="logout-button" id="logoutBtn" type="button">
+                <span aria-hidden="true">↪</span>
+                تسجيل الخروج
+            </button>
+
+        </div>
+
+    </aside>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <div class="breadcrumb">إيلابرات / لوحة الإدارة</div>
+                <h1 id="pageTitle">مرحباً بك في لوحة الإدارة</h1>
+            </div>
+
+            <div class="topbar-actions">
+
+                <div class="status-indicator">
+                    <span aria-hidden="true"></span>
+                    لوحة مدير التطبيق
+                </div>
+
+                <div class="top-avatar" aria-hidden="true">م</div>
+
+            </div>
+
+        </header>
+
+        <!-- الرئيسية -->
+        <section id="dashboardView" class="page-view">
+
+            <div class="welcome-panel">
+
+                <div class="welcome-content">
+
+                    <span class="eyebrow">ILABRAT CONTROL CENTER</span>
+
+                    <h2>إدارة مؤسساتك التعليمية، من مكان واحد.</h2>
+
+                    <p>
+                        تابع المدارس المسجلة، ونظّم حسابات مديريها،
+                        وتحكّم بمنصة إيلابرات بكل سهولة.
+                    </p>
+
+                    <button
+                        class="button button-light"
+                        id="welcomeAddSchool"
+                        type="button"
+                    >
+                        + إضافة مدرسة جديدة
+                    </button>
+
+                </div>
+
+                <div class="welcome-symbol" aria-hidden="true">
+                    <div class="symbol-ring"></div>
+                    <div class="symbol-card">إ</div>
+                    <span class="symbol-dot dot-one"></span>
+                    <span class="symbol-dot dot-two"></span>
+                </div>
+
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <h2>نظرة عامة</h2>
+                    <p>ملخص المؤسسات التعليمية في المنصة</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span>إجمالي المدارس</span>
+                        <span class="stat-icon burgundy" aria-hidden="true">▦</span>
+                    </div>
+
+                    <strong id="totalSchools">0</strong>
+                    <small>المؤسسات المسجلة في النظام</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span>مديرو المدارس</span>
+                        <span class="stat-icon gold" aria-hidden="true">♙</span>
+                    </div>
+
+                    <strong id="totalManagers">0</strong>
+                    <small>حسابات الإدارة المدرسية</small>
+                </article>
+
+                <article class="stat-card">
+                    <div class="stat-top">
+                        <span>المدارس المضافة</span>
+                        <span class="stat-icon brown" aria-hidden="true">＋</span>
+                    </div>
+
+                    <strong id="recentSchools">0</strong>
+                    <small>المدارس المسجلة في المنصة</small>
+                </article>
+
+            </div>
+
+            <!-- جدول المدارس الرئيسي -->
+            <section class="content-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h2>المدارس المسجلة</h2>
+                        <p>إدارة المؤسسات التعليمية التابعة للمنصة</p>
+                    </div>
+
+                    <button
+                        class="button button-primary"
+                        id="addSchoolBtn"
+                        type="button"
+                    >
+                        + إضافة مدرسة
+                    </button>
+
+                </div>
+
+                <div class="table-tools">
+
+                    <div class="search-box">
+                        <span aria-hidden="true">⌕</span>
+
+                        <input
+                            type="search"
+                            id="schoolSearch"
+                            placeholder="ابحث عن اسم مدرسة..."
+                            aria-label="البحث عن مدرسة"
+                        >
+                    </div>
+
+                    <span class="results-count" id="resultsCount">0 مدارس</span>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">اسم المدرسة</th>
+                                <th scope="col">تاريخ الإضافة</th>
+                                <th scope="col">الحالة</th>
+                                <th scope="col">رقم الهاتف</th>
+                                <th scope="col">الموقع</th>
+                                <th scope="col">الإجراءات</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="schoolsTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="empty-state hidden" id="emptyState">
+
+                    <div class="empty-icon" aria-hidden="true">▦</div>
+
+                    <h3>لا توجد مدارس مطابقة</h3>
+
+                    <p>جرّب البحث باسم آخر أو أضف مدرسة جديدة.</p>
+
+                </div>
+
+            </section>
+
+            <footer class="footer-note">
+                إيلابرات © 2026 — منصة الإدارة التعليمية
+            </footer>
+
+        </section>
+
+        <!-- إدارة المدارس -->
+      
+<!-- إدارة المدارس -->
+<section id="schoolsView" class="page-view hidden">
+
+    <div class="content-card standalone-card">
+
+        <div class="card-heading">
+            <div>
+                <h2>إدارة المدارس</h2>
+                <p>إضافة المدارس ومراجعة المؤسسات المسجلة.</p>
+            </div>
+
+            <button
+                type="button"
+                class="button button-primary"
+                id="schoolsAddBtn"
+            >
+                + إضافة مدرسة
+            </button>
+        </div>
+
+        <p class="info-note">
+            تُحمّل المدارس وبيانات مديريها من قاعدة بيانات Supabase.
+        </p>
+
+        <div class="table-tools">
+            <div class="search-box">
+                <span aria-hidden="true">⌕</span>
+                <input
+                    type="search"
+                    id="schoolSearch"
+                    placeholder="ابحث عن اسم مدرسة..."
+                    aria-label="البحث عن مدرسة"
+                >
+            </div>
+
+            <span class="results-count" id="resultsCount">0 مدارس</span>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">اسم المدرسة</th>
+                        <th scope="col">تاريخ الإنشاء</th>
+                        <th scope="col">اسم المدير</th>
+                        <th scope="col">رقم الهاتف</th>
+                    </tr>
+                </thead>
+
+                <tbody id="schoolsSecondaryTableBody"></tbody>
+            </table>
+        </div>
+
+        <div class="empty-state hidden" id="schoolsManagementEmptyState">
+            <div class="empty-icon" aria-hidden="true">▦</div>
+            <h3>لا توجد مدارس مطابقة</h3>
+            <p>جرّب البحث باسم آخر أو أضف مدرسة جديدة.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+        <!-- مديرو المدارس -->
+        <section id="managersView" class="page-view hidden">
+
+            <div class="content-card standalone-card">
+
+                <div class="card-heading">
+
+                    <div>
+                        <h2>مديرو المدارس</h2>
+                        <p>إنشاء حسابات مديري المدارس وربط كل مدير بمؤسسته.</p>
+                    </div>
+
+                    <button
+                        class="button button-primary"
+                        id="addManagerBtn"
+                        type="button"
+                    >
+                        + إضافة مدير مدرسة
+                    </button>
+
+                </div>
+
+                <div class="table-tools">
+
+                    <div class="search-box">
+                        <span aria-hidden="true">⌕</span>
+
+                        <input
+                            type="search"
+                            id="managerSearch"
+                            placeholder="ابحث عن مدير أو مدرسة..."
+                            aria-label="البحث عن مدير مدرسة"
+                        >
+                    </div>
+
+                    <span class="results-count" id="managerResultsCount">0 مدير</span>
+
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th scope="col">اسم المدير</th>
+                                <th scope="col">المدرسة</th>
+                                <th scope="col">الصلاحية</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="managersTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="empty-state hidden" id="managersEmptyState">
+
+                    <div class="empty-icon" aria-hidden="true">♙</div>
+
+                    <h3>لا يوجد مديرو مدارس بعد</h3>
+
+                    <p>
+                        أضف مديراً واربط حسابه بالمدرسة التي يتولى إدارتها.
+                    </p>
+
+                </div>
+
+                <p class="form-hint">
+                    لا يُعرض البريد الإلكتروني هنا؛ لأن بيانات تسجيل الدخول
+                    تُدار بصورة منفصلة في Supabase Authentication.
+                </p>
+
+            </div>
+
+        </section>
+
+        <!-- الإعدادات -->
+        <section id="settingsView" class="page-view hidden">
+
+            <div class="content-card standalone-card">
+
+                <div class="card-heading">
+                    <div>
+                        <h2>إعدادات المنصة</h2>
+                        <p>الإعدادات العامة للوحة مدير التطبيق.</p>
+                    </div>
+                </div>
+
+                <div class="notice-panel">
+                    <strong>المرحلة الأولى</strong>
+                    <p>
+                        سنضيف إعدادات المنصة وصلاحيات الإدارة
+                        بعد إكمال الربط الآمن.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<!-- نافذة إضافة مدرسة -->
+<div
+    class="modal-overlay hidden"
+    id="schoolModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+>
+    <div class="modal">
+
+        <div class="modal-heading">
+
+            <div>
+                <span class="eyebrow">NEW INSTITUTION</span>
+                <h2 id="modalTitle">إضافة مدرسة جديدة</h2>
+                <p>أدخل البيانات الأساسية للمؤسسة التعليمية.</p>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeModalBtn"
+                aria-label="إغلاق النافذة"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <form id="schoolForm">
+
+            <label for="schoolName">اسم المدرسة</label>
+
+            <input
+                id="schoolName"
+                name="schoolName"
+                type="text"
+                placeholder="مثال: مدرسة التميز"
+                required
+                maxlength="120"
+                autocomplete="organization"
+            >
+
+            <div class="form-hint">
+                سيُخصص لكل مدرسة نطاق بيانات مستقل داخل المنصة.
+            </div>
+
+            <label for="schoolLocation">موقع المدرسة</label>
+
+            <input
+                id="schoolLocation"
+                name="location"
+                type="text"
+                placeholder="المحافظة أو المنطقة"
+                maxlength="200"
+                autocomplete="street-address"
+                required
+            >
+
+            <div class="form-hint">
+                أدخل موقع المدرسة قبل حفظها. يمكنك إنشاء حساب مديرها
+                وربطه بها بعد إتمام التسجيل.
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="button button-outline"
+                    id="cancelModalBtn"
+                >
+                    إلغاء
+                </button>
+
+                <button
+                    type="submit"
+                    class="button button-primary"
+                >
+                    إضافة المدرسة
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- نافذة تعديل بيانات المدرسة -->
+<div
+    class="modal-overlay hidden"
+    id="editSchoolModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="editSchoolModalTitle"
+>
+    <div class="modal">
+
+        <div class="modal-heading">
+
+            <div>
+                <span class="eyebrow">EDIT INSTITUTION</span>
+
+                <h2 id="editSchoolModalTitle">تعديل بيانات المدرسة</h2>
+
+                <p>
+                    يمكن تعديل اسم المدرسة والحالة ورقم الهاتف والموقع.
+                    تاريخ الإضافة للعرض فقط.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeEditSchoolBtn"
+                aria-label="إغلاق النافذة"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <form id="editSchoolForm">
+
+            <!-- المعرّف داخلي فقط ولا يظهر للمستخدم -->
+            <input type="hidden" id="editSchoolId" name="id">
+
+            <div id="editSchoolFields"></div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="button button-outline"
+                    id="cancelEditSchoolBtn"
+                >
+                    إلغاء
+                </button>
+
+                <button
+                    type="submit"
+                    class="button button-primary"
+                >
+                    حفظ التعديلات
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- نافذة تأكيد الحذف -->
+<div
+    class="modal-overlay hidden"
+    id="deleteSchoolModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="deleteSchoolModalTitle"
+>
+    <div class="modal">
+
+        <div class="modal-heading">
+
+            <div>
+                <span class="eyebrow">DELETE INSTITUTION</span>
+
+                <h2 id="deleteSchoolModalTitle">تأكيد حذف المدرسة</h2>
+
+                <p>
+                    هذا الإجراء قد يؤثر في البيانات المرتبطة بالمدرسة.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeDeleteSchoolBtn"
+                aria-label="إغلاق النافذة"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <div class="notice-panel">
+
+            <p>هل تريد حذف المدرسة التالية نهائيًا؟</p>
+
+            <strong id="deleteSchoolName">اسم المدرسة</strong>
+
+            <p>
+                قد يؤدي الحذف إلى إزالة الصفوف الدراسية والعضويات
+                والجداول والمنشورات المرتبطة، وفق قيود قاعدة البيانات.
+            </p>
+
+            <p>
+                <strong>لا يمكن التراجع عن الحذف بعد نجاحه.</strong>
+            </p>
+
+        </div>
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="button button-outline"
+                id="cancelDeleteSchoolBtn"
+            >
+                إلغاء
+            </button>
+
+            <button
+                type="button"
+                class="button button-primary"
+                id="confirmDeleteSchoolBtn"
+            >
+                حذف نهائي
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- نافذة إنشاء مدير مدرسة -->
+<div
+    class="modal-overlay hidden"
+    id="managerModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="managerModalTitle"
+>
+    <div class="modal">
+
+        <div class="modal-heading">
+
+            <div>
+                <span class="eyebrow">SCHOOL MANAGEMENT</span>
+
+                <h2 id="managerModalTitle">إضافة مدير مدرسة</h2>
+
+                <p>أنشئ الحساب واربطه بالمدرسة المختارة.</p>
+            </div>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="closeManagerModalBtn"
+                aria-label="إغلاق النافذة"
+            >
+                ×
+            </button>
+
+        </div>
+
+        <form id="managerForm">
+
+            <label for="managerFullName">الاسم الكامل</label>
+
+            <input
+                id="managerFullName"
+                name="full_name"
+                type="text"
+                placeholder="اسم مدير المدرسة"
+                required
+                maxlength="120"
+                autocomplete="name"
+            >
+
+            <label for="managerEmail">البريد الإلكتروني</label>
+
+            <input
+                id="managerEmail"
+                name="email"
+                type="email"
+                placeholder="manager@example.com"
+                required
+                maxlength="254"
+                autocomplete="email"
+                dir="ltr"
+            >
+
+            <label for="managerPhone">رقم الهاتف</label>
+
+            <input
+                id="managerPhone"
+                name="phone"
+                type="tel"
+                placeholder="أدخل رقم هاتف المدير"
+                required
+                maxlength="30"
+                autocomplete="tel"
+                dir="ltr"
+            >
+
+            <label for="managerPassword">كلمة المرور المؤقتة</label>
+
+            <input
+                id="managerPassword"
+                name="password"
+                type="password"
+                placeholder="8 أحرف على الأقل"
+                required
+                minlength="8"
+                maxlength="128"
+                autocomplete="new-password"
+            >
+
+            <label for="managerSchool">المدرسة</label>
+
+            <select id="managerSchool" name="school_id" required>
+                <option value="">اختر المدرسة</option>
+            </select>
+
+            <div class="form-hint">
+                استخدم كلمة مرور مؤقتة قوية وسلّمها للمدير بطريقة آمنة.
+                لا تستخدم كلمة مرورك الشخصية.
+            </div>
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    class="button button-outline"
+                    id="cancelManagerModalBtn"
+                >
+                    إلغاء
+                </button>
+
+                <button
+                    type="submit"
+                    class="button button-primary"
+                    id="saveManagerBtn"
+                >
+                    إنشاء الحساب
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<!-- رسائل التنبيه -->
+<div
+    class="toast hidden"
+    id="toast"
+    role="status"
+    aria-live="polite"
+></div>
+
+<!-- Supabase وإعدادات المشروع -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase-config.js"></script>
+<script src="js/main-admin.js"></script>
+
+</body>
+</html>
